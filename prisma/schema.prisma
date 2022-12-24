@@ -1,0 +1,54 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model profile {
+  id             Int             @id @default(autoincrement())
+  uuid           String          @unique @default(cuid()) @db.Uuid
+  email          String
+  first_name     String
+  last_name      String
+  created_at     DateTime        @default(now())
+  role           role
+}
+
+model client_profile {
+  id         Int      @id @default(autoincrement())
+  profile_id String   @unique @default(cuid()) @db.Uuid
+}
+
+model intern_profile {
+  id         Int      @id @default(autoincrement())
+  profile_id String   @unique @default(cuid()) @db.Uuid
+}
+
+model ticket {
+  id          Int            @id @default(autoincrement())
+  uuid        String         @unique @default(cuid())
+  name        String
+  description String
+  device_id   String
+  status      ticket_status	 @default(NOT_STARTED)
+  starts_at   DateTime
+  finished_at DateTime?
+  created_at  DateTime       @default(now())
+  intern_id   Int
+  client_id   Int
+}
+
+enum role {
+  CLIENT
+  INTERN
+  ADMIN
+}
+
+enum ticket_status {
+  NOT_STARTED
+  ACTIVE
+  CLOSED
+}

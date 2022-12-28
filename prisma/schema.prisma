@@ -8,8 +8,7 @@ datasource db {
 }
 
 model profile {
-  id             Int             @id @default(autoincrement())
-  uuid           String          @unique @default(cuid()) @db.Uuid
+  id             String          @id @unique @db.Uuid
   email          String
   first_name     String
   last_name      String
@@ -18,18 +17,18 @@ model profile {
 }
 
 model client_profile {
-  id         Int      @id @default(autoincrement())
-  profile_id String   @unique @default(cuid()) @db.Uuid
+  id         String    @id @unique @default(cuid()) @db.Uuid
+  profile_id String    @unique @db.Uuid
 }
 
 model intern_profile {
-  id         Int      @id @default(autoincrement())
-  profile_id String   @unique @default(cuid()) @db.Uuid
+  id         String   @id @unique @default(cuid()) @db.Uuid
+  profile_id String   @unique @db.Uuid
 }
 
 model ticket {
   id          Int            @id @default(autoincrement())
-  uuid        String         @unique @default(cuid())
+  uuid        String         @unique @default(cuid()) @db.Uuid
   name        String
   description String
   device_id   String
@@ -37,8 +36,31 @@ model ticket {
   starts_at   DateTime
   finished_at DateTime?
   created_at  DateTime       @default(now())
-  intern_id   Int
-  client_id   Int
+  intern_id   String
+  client_id   String
+}
+
+model inventory {
+  id         String      @id @unique @default(cuid()) @db.Uuid
+  client_id  String
+  created_at DateTime @default(now())
+}
+
+model device {
+  id             Int       @id @default(autoincrement())
+  uuid           String?   @unique @default(cuid())
+  name           String
+  description    String
+  inventory_id   String
+  // procedure      String
+  // type           String
+  // tags           String[]
+  image_url      String
+  // external_id    String
+  // brand          String
+  // serial_number  String
+  // location       String
+  created_at     DateTime  @default(now())
 }
 
 enum role {

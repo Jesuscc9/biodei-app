@@ -1,104 +1,153 @@
-export type Json = string | number | boolean | null | { [key: string]: Json } | Json[]
+export type Json =
+  | string
+  | number
+  | boolean
+  | null
+  | { [key: string]: Json }
+  | Json[]
 
 export interface Database {
   public: {
     Tables: {
       client_profile: {
         Row: {
-          id: number
           profile_id: string
+          id: string
+        }
+        Insert: {
+          profile_id: string
+          id?: string
+        }
+        Update: {
+          profile_id?: string
+          id?: string
+        }
+      }
+      device: {
+        Row: {
+          id: number
+          uuid: string | null
+          name: string
+          description: string
+          inventory_id: string
+          image_url: string
+          created_at: string
         }
         Insert: {
           id?: number
-          profile_id: string
+          uuid?: string | null
+          name: string
+          description: string
+          inventory_id: string
+          image_url: string
+          created_at?: string
         }
         Update: {
           id?: number
-          profile_id?: string
+          uuid?: string | null
+          name?: string
+          description?: string
+          inventory_id?: string
+          image_url?: string
+          created_at?: string
         }
       }
       intern_profile: {
         Row: {
-          id: number
           profile_id: string
+          id: string
         }
         Insert: {
-          id?: number
           profile_id: string
+          id?: string
         }
         Update: {
-          id?: number
           profile_id?: string
+          id?: string
+        }
+      }
+      inventory: {
+        Row: {
+          client_id: string
+          created_at: string
+          id: string
+        }
+        Insert: {
+          client_id: string
+          created_at?: string
+          id?: string
+        }
+        Update: {
+          client_id?: string
+          created_at?: string
+          id?: string
         }
       }
       profile: {
         Row: {
-          id: number
-          uuid: string
           email: string
           first_name: string
           last_name: string
           created_at: string
-          role: Database['public']['Enums']['role']
+          role: Database["public"]["Enums"]["role"]
+          id: string
         }
         Insert: {
-          id?: number
-          uuid: string
           email: string
           first_name: string
           last_name: string
           created_at?: string
-          role: Database['public']['Enums']['role']
+          role: Database["public"]["Enums"]["role"]
+          id: string
         }
         Update: {
-          id?: number
-          uuid?: string
           email?: string
           first_name?: string
           last_name?: string
           created_at?: string
-          role?: Database['public']['Enums']['role']
+          role?: Database["public"]["Enums"]["role"]
+          id?: string
         }
       }
       ticket: {
         Row: {
           id: number
-          uuid: string
           name: string
           description: string
-          status: Database['public']['Enums']['ticket_status']
-          starts_at: string
-          finished_at: string
-          created_at: string
-          intern_id: number
-          client_id: number
           device_id: string
+          status: Database["public"]["Enums"]["ticket_status"]
+          starts_at: string
+          finished_at: string | null
+          created_at: string
+          intern_id: string
+          client_id: string
+          uuid: string
         }
         Insert: {
           id?: number
-          uuid: string
           name: string
           description: string
-          status: Database['public']['Enums']['ticket_status']
-          starts_at: string
-          finished_at: string
-          created_at?: string
-          intern_id: number
-          client_id: number
           device_id: string
+          status?: Database["public"]["Enums"]["ticket_status"]
+          starts_at: string
+          finished_at?: string | null
+          created_at?: string
+          intern_id: string
+          client_id: string
+          uuid: string
         }
         Update: {
           id?: number
-          uuid?: string
           name?: string
           description?: string
-          status?: Database['public']['Enums']['ticket_status']
-          starts_at?: string
-          finished_at?: string
-          created_at?: string
-          intern_id?: number
-          client_id?: number
           device_id?: string
+          status?: Database["public"]["Enums"]["ticket_status"]
+          starts_at?: string
+          finished_at?: string | null
+          created_at?: string
+          intern_id?: string
+          client_id?: string
+          uuid?: string
         }
       }
     }
@@ -109,8 +158,8 @@ export interface Database {
       [_ in never]: never
     }
     Enums: {
-      role: 'CLIENT' | 'INTERN' | 'ADMIN'
-      ticket_status: 'NOT_STARTED' | 'ACTIVE' | 'CLOSED'
+      role: "CLIENT" | "INTERN" | "ADMIN"
+      ticket_status: "NOT_STARTED" | "ACTIVE" | "CLOSED"
     }
   }
 }

@@ -1,5 +1,4 @@
-import { iModelHook } from '../../useProfile'
-import { iTicket } from '../../../types'
+import { iTicket, iModelHook } from '../../../types'
 import useSWR from 'swr'
 import { supabase } from '../../../services/supabaseService'
 

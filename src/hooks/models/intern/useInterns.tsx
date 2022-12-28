@@ -1,5 +1,4 @@
-import { iModelHook } from '../../useProfile'
-import { iIntern } from '../../../types'
+import { iIntern, iModelHook } from '../../../types'
 import useSWR from 'swr'
 import { supabase } from '../../../services/supabaseService'
 

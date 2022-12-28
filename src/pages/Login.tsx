@@ -5,15 +5,15 @@ export const LoginPage = (): JSX.Element => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
 
-    const { signInWithPassword } = supabase.auth
-
     const values = Object.fromEntries(new FormData(e.currentTarget)) as Record<string, string>
 
-    signInWithPassword({
-      email: values.email,
-      password: values.password,
-    })
+    supabase.auth
+      .signInWithPassword({
+        email: values.email,
+        password: values.password,
+      })
       .then((e) => {
+        console.log({ e })
         console.log({ e })
       })
       .catch((err) => {
@@ -39,7 +39,7 @@ export const LoginPage = (): JSX.Element => {
           Contraseña
           <input
             id='password'
-            type='text'
+            type='password'
             className='w-full p-3 mt-2 border rounded-md text-black'
             placeholder='******'
             name='password'

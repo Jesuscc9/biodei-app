@@ -1,16 +1,18 @@
-import { supabase } from '../services/supabaseService'
-import { iProfile } from '../types'
-import { useAuth } from './AuthProvider'
-import useSWR, { SWRResponse } from 'swr'
-
-export interface iModelHook<T> extends SWRResponse<T> {
-  isLoading: boolean
-}
+import { supabase } from '../../../services/supabaseService'
+import { iProfile, iModelHook } from '../../../types'
+import { useAuth } from '../../AuthProvider'
+import useSWR from 'swr'
 
 const getProfile = async (params: string[]): Promise<iProfile> => {
   const { 1: userId } = params
-  const res = await supabase.from('profile').select('*').eq('uuid', userId).single()
-  const profile = res.data as iProfile
+  const res = await supabase
+    .from('profile')
+    .select('*, client_profile ( *, inventory ( * ) )')
+    .eq('id', userId)
+    .single()
+
+  const profile = res.data as unknown as iProfile
+  profile.client_profile = profile.client_profile?.[0] ?? null
   return profile
 }
 

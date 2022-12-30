@@ -12,12 +12,8 @@ export const LoginPage = (): JSX.Element => {
         email: values.email,
         password: values.password,
       })
-      .then((e) => {
-        console.log({ e })
-        console.log({ e })
-      })
       .catch((err) => {
-        console.log({ err })
+        console.error({ err })
       })
   }
 

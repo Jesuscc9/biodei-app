@@ -7,7 +7,7 @@ export const Navbar = (): JSX.Element => {
   const { data: profile } = useProfile()
 
   const handleLogout = (): void => {
-    supabase.auth.signOut().catch((error) => console.log(error))
+    supabase.auth.signOut().catch((error) => console.error(error))
   }
 
   return (

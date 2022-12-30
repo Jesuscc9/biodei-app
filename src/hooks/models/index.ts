@@ -1,4 +1,5 @@
 export * from './client'
 export * from './ticket'
 export * from './device'
+export * from './intern'
 export * from './profile'

@@ -11,8 +11,7 @@ const getProfile = async (params: string[]): Promise<iProfile> => {
     .eq('id', userId)
     .single()
 
-  const profile = res.data as unknown as iProfile
-  profile.client_profile = profile.client_profile?.[0] ?? null
+  const profile = res.data as iProfile
   return profile
 }
 

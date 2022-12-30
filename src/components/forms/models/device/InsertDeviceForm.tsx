@@ -14,11 +14,12 @@ const initialValues: iInsertDevice = {
 export const InsertDeviceForm = (): JSX.Element => {
   const { isLoading, create } = useInsertDevice()
 
-  const { handleSubmit } = useFormik<iInsertDevice>({
+  const { handleSubmit, handleChange } = useFormik<iInsertDevice>({
     initialValues,
     onSubmit: async (e) => {
       await create(e)
     },
+    enableReinitialize: true,
   })
 
   return (
@@ -26,13 +27,14 @@ export const InsertDeviceForm = (): JSX.Element => {
       <h1 className='text-center text-xl uppercase font-bold'>Crear dispositivo</h1>
       <label htmlFor='name'>
         Nombre
-        <InputText placeholder='Osciloscopio' name='name' />
+        <InputText placeholder='Osciloscopio' name='name' onChange={handleChange} />
       </label>
 
       <label htmlFor='description'>
         Descripcion
         <textarea
           rows={4}
+          onChange={handleChange}
           id='description'
           title='description'
           name='description'
@@ -43,7 +45,7 @@ export const InsertDeviceForm = (): JSX.Element => {
 
       <label htmlFor='image_url'>
         Imagen
-        <InputText name='image_url' placeholder='URL of the image' />
+        <InputText name='image_url' onChange={handleChange} placeholder='URL of the image' />
       </label>
 
       <Button isLoading={isLoading}>Crear dispositivo</Button>

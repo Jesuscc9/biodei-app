@@ -12,7 +12,7 @@ export const SignupPage = (): JSX.Element => {
 
     const values: any = Object.fromEntries(new FormData(e.currentTarget))
 
-    const res = supabase.auth
+    supabase.auth
       .signUp({
         email: values.email,
         password: values.password,
@@ -25,20 +25,7 @@ export const SignupPage = (): JSX.Element => {
           },
         },
       })
-      .catch((error) => console.log(error))
-
-    console.log({
-      email: String(values.email),
-      password: String(values.password),
-      options: {
-        data: {
-          email: values.email,
-          first_name: values.first_name,
-          last_name: values.last_name,
-          role: values.role,
-        },
-      },
-    })
+      .catch((error) => console.error(error))
   }
 
   return (
@@ -116,9 +103,7 @@ export const SignupPage = (): JSX.Element => {
         <h1 className='text-xl'>Create Admin Account</h1>
         <button
           onClick={() => {
-            createAdminAccount()
-              .then((res) => console.log(res))
-              .catch((error) => console.log(error))
+            createAdminAccount().catch((error) => console.error(error))
           }}
           type='button'
           className='bg-red-500 hover:bg-red-600 rounded-md text-lg p-4'

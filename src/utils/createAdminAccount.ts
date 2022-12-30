@@ -27,12 +27,12 @@ export const createAdminAccount = async (): Promise<any> => {
   try {
     const res = await supabase.auth.signUp(body)
 
-    console.log('Successfully created admin account')
-    console.log({ res })
+    console.info('Successfully created admin account')
+    console.info({ res })
 
-    console.log(body)
+    console.info(body)
   } catch (e) {
-    console.log('Error creating admin account')
-    console.log({ e })
+    console.info('Error creating admin account')
+    console.info({ e })
   }
 }

@@ -19,6 +19,7 @@
     "@types/react": "18.0.25",
     "axios": "1.2.1",
     "formik": "^2.2.9",
+    "javascript-time-ago": "^2.5.9",
     "next": "13.1.0",
     "prisma": "4.6.1",
     "react": "18.2.0",

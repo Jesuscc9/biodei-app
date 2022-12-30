@@ -1,15 +1,15 @@
-import { iIntern, iModelHook } from '../../../types'
+import { iProfile, iModelHook } from '../../../types'
 import useSWR from 'swr'
 import { supabase } from '../../../services/supabaseService'
 
-const getInterns = async (): Promise<iIntern[]> => {
+const getInterns = async (): Promise<iProfile[]> => {
   const res = await supabase.from('profile').select('*, intern_profile(*)').filter('role', 'eq', 'INTERN')
-  const tickets = res.data as iIntern[]
+  const tickets = res.data as iProfile[]
   return tickets
 }
 
-export const useInterns = (): iModelHook<iIntern[]> => {
-  const res = useSWR<iIntern[]>('/interns', getInterns)
+export const useInterns = (): iModelHook<iProfile[]> => {
+  const res = useSWR<iProfile[]>('/interns', getInterns)
 
   const isLoading = res.data === undefined && res.error === undefined
 

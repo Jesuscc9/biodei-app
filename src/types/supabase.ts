@@ -1,10 +1,4 @@
-export type Json =
-  | string
-  | number
-  | boolean
-  | null
-  | { [key: string]: Json }
-  | Json[]
+export type Json = string | number | boolean | null | { [key: string]: Json } | Json[]
 
 export interface Database {
   public: {
@@ -25,8 +19,7 @@ export interface Database {
       }
       device: {
         Row: {
-          id: number
-          uuid: string | null
+          id: string
           name: string
           description: string
           inventory_id: string
@@ -34,8 +27,7 @@ export interface Database {
           created_at: string
         }
         Insert: {
-          id?: number
-          uuid?: string | null
+          id?: string
           name: string
           description: string
           inventory_id: string
@@ -43,8 +35,7 @@ export interface Database {
           created_at?: string
         }
         Update: {
-          id?: number
-          uuid?: string | null
+          id?: string
           name?: string
           description?: string
           inventory_id?: string
@@ -89,7 +80,7 @@ export interface Database {
           first_name: string
           last_name: string
           created_at: string
-          role: Database["public"]["Enums"]["role"]
+          role: Database['public']['Enums']['role']
           id: string
         }
         Insert: {
@@ -97,7 +88,7 @@ export interface Database {
           first_name: string
           last_name: string
           created_at?: string
-          role: Database["public"]["Enums"]["role"]
+          role: Database['public']['Enums']['role']
           id: string
         }
         Update: {
@@ -105,49 +96,46 @@ export interface Database {
           first_name?: string
           last_name?: string
           created_at?: string
-          role?: Database["public"]["Enums"]["role"]
+          role?: Database['public']['Enums']['role']
           id?: string
         }
       }
       ticket: {
         Row: {
-          id: number
           name: string
           description: string
           device_id: string
-          status: Database["public"]["Enums"]["ticket_status"]
+          status: Database['public']['Enums']['ticket_status']
           starts_at: string
           finished_at: string | null
           created_at: string
           intern_id: string
           client_id: string
-          uuid: string
+          id: string
         }
         Insert: {
-          id?: number
           name: string
           description: string
           device_id: string
-          status?: Database["public"]["Enums"]["ticket_status"]
+          status?: Database['public']['Enums']['ticket_status']
           starts_at: string
           finished_at?: string | null
           created_at?: string
           intern_id: string
           client_id: string
-          uuid: string
+          id?: string
         }
         Update: {
-          id?: number
           name?: string
           description?: string
           device_id?: string
-          status?: Database["public"]["Enums"]["ticket_status"]
+          status?: Database['public']['Enums']['ticket_status']
           starts_at?: string
           finished_at?: string | null
           created_at?: string
           intern_id?: string
           client_id?: string
-          uuid?: string
+          id?: string
         }
       }
     }
@@ -158,8 +146,8 @@ export interface Database {
       [_ in never]: never
     }
     Enums: {
-      role: "CLIENT" | "INTERN" | "ADMIN"
-      ticket_status: "NOT_STARTED" | "ACTIVE" | "CLOSED"
+      role: 'CLIENT' | 'INTERN' | 'ADMIN'
+      ticket_status: 'NOT_STARTED' | 'ACTIVE' | 'CLOSED'
     }
   }
 }

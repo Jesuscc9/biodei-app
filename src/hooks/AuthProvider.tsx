@@ -23,13 +23,13 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }): JSX.E
       setUser(activeUser.data.user)
     }
 
-    loadData().catch((error) => console.log(error))
+    loadData().catch((error) => console.error(error))
 
     const { data: authListener } = supabase.auth.onAuthStateChange((event, currentSession) => {
       setSession(currentSession)
       setUser(currentSession?.user ?? null)
 
-      console.log('Auth state changed:', event, currentSession)
+      console.info('Auth state changed:', event, currentSession)
     })
 
     return () => {

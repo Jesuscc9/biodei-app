@@ -1,6 +1,6 @@
 import React from 'react'
 import { Routes, Route, Outlet } from 'react-router-dom'
-import { LoginPage, HomePage, TicketsPage, DevicesPage, SignupPage, NewTicketPage } from '../pages'
+import { LoginPage, HomePage, TicketsPage, DevicesPage, SignupPage, NewTicketPage, TicketDetailPage } from '../pages'
 import { Navbar } from '../components'
 
 export const Router = (): JSX.Element => {
@@ -12,8 +12,8 @@ export const Router = (): JSX.Element => {
         <Route path='signup' element={<SignupPage />} />
         <Route path='tickets' element={<Outlet />}>
           <Route index element={<TicketsPage />} />
+          <Route path=':ticketId' element={<TicketDetailPage />} />
           <Route path='new' element={<NewTicketPage />} />
-          <Route path=':ticketId' element={<div>Ticket con id</div>} />
         </Route>
         <Route path='devices' element={<Outlet />}>
           <Route index element={<DevicesPage />} />

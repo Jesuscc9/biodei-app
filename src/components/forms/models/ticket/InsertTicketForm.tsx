@@ -26,7 +26,7 @@ export const InsertTicketForm = (): JSX.Element => {
   const { handleSubmit, handleChange } = useFormik<iInsertTicket>({
     initialValues,
     onSubmit: (values) => {
-      create(values).catch((err) => console.log(err))
+      create(values).catch((err) => console.error(err))
       navigate('/tickets')
     },
   })

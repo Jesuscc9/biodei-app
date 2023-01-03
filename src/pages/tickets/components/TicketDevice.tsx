@@ -29,7 +29,7 @@ export const TicketDevice = ({ id }: { id: string }): JSX.Element => {
             <span className='font-bold'>Descripcion: </span>
             {data?.description}
           </p>
-          <img src={data?.image_url} alt='' className='mt-2' width={200} />
+          <img src={data?.image_url} alt='' className='mt-2 border p-2 rounded-sm' width={200} />
         </div>
       )}
     </div>

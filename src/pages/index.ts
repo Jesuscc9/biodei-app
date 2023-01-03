@@ -1,5 +1,5 @@
-export * from './Login'
+export * from './login'
 export * from './Signup'
 export * from './Home'
 export * from './tickets'
-export * from './Devices'
+export * from './devices'

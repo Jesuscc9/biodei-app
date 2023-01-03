@@ -11,6 +11,12 @@ export interface iInsertModelHook<Model, InsertModel> {
   error: Error | null
 }
 
+export interface iUpdateModelHook<Model, UpdateModel> {
+  update: (id: string, data: UpdateModel) => Promise<Model>
+  isLoading: boolean
+  error: Error | null
+}
+
 export interface iDestroyModelHook<Model> {
   destroy: (id: string) => Promise<Model>
   isLoading: boolean
@@ -25,8 +31,8 @@ export type iProfile = Database['public']['Tables']['profile']['Row'] & {
 }
 
 export type iTicket = Database['public']['Tables']['ticket']['Row']
-
 export type iInsertTicket = Database['public']['Tables']['ticket']['Insert']
+export type iUpdateTicket = Database['public']['Tables']['ticket']['Update']
 
 export type iDevice = Database['public']['Tables']['device']['Row']
 

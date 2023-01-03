@@ -3,15 +3,16 @@ import React from 'react'
 interface iProps
   extends Omit<React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>, 'type'> {
   isLoading?: boolean
+  type?: 'text' | 'password'
+  label?: string
 }
 
-export const InputText = (props: iProps): JSX.Element => {
+export const InputText = ({ isLoading, label, ...props }: iProps): JSX.Element => {
   return (
     <input
-      type='text'
       id={props.name}
       title={props.name}
-      className='border p-3 text-black rounded-md w-full mt-2'
+      className='border py-2.5 text-sm px-4 text-black bg-zinc-700 border-zinc-300 rounded-md w-full mt-2'
       {...props}
     />
   )

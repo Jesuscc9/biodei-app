@@ -12,7 +12,7 @@ export const Navbar = (): JSX.Element => {
 
   return (
     <>
-      <nav className='p-6 px-10 border-gray-300 border-b flex justify-between items-center bg-gray-800 text-white'>
+      <nav className='p-6 px-10 border-zinc-300 border-b flex justify-between items-center bg-zinc-800 text-white'>
         <div className='flex items-center gap-2'>
           <h1 className='font-bold text-xl'>BIODEI</h1>
           <ul className='ml-10 flex gap-4'>
@@ -24,6 +24,11 @@ export const Navbar = (): JSX.Element => {
             <li>
               <Link to='devices' className='hover:underline'>
                 Devices
+              </Link>
+            </li>
+            <li>
+              <Link to='users' className='hover:underline'>
+                Users
               </Link>
             </li>
           </ul>

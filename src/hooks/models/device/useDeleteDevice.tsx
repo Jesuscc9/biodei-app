@@ -6,11 +6,11 @@ import { mutate } from 'swr'
 export const useDeleteDevice = (): iDestroyModelHook<iDevice> => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
-  const destroy = async (uuid: string): Promise<iDevice> => {
+  const destroy = async (id: string): Promise<iDevice> => {
     setIsLoading(true)
 
     try {
-      const res = await supabase.from('device').delete().eq('uuid', uuid).single()
+      const res = await supabase.from('device').delete().eq('id', id).single()
 
       await mutate('/devices')
 

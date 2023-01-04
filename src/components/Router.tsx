@@ -11,8 +11,8 @@ export const Router = (): JSX.Element => {
   return (
     <Routes>
       <Route path='login' element={<LoginPage />} />
+      <Route index element={<LoginPage />} />
       <Route path='/' element={<Navbar />}>
-        <Route index element={<HomePage />} />
         <Route path='signup' element={<SignupPage />} />
         <Route path='tickets' element={<Outlet />}>
           <Route index element={<TicketsPage />} />

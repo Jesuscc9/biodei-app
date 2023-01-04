@@ -20,6 +20,7 @@ export const createAdminAccount = async (): Promise<any> => {
         first_name: values.first_name,
         last_name: values.last_name,
         role: values.role,
+        company_name: values?.company_name ?? '',
       },
     },
   }

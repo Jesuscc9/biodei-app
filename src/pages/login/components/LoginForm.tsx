@@ -1,34 +1,60 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { supabase } from '../../../services'
 import { Button, InputText } from '../../../components'
+import { useFormik } from 'formik'
+
+interface iValues {
+  email: string
+  password: string
+}
+
+const initialValues = {
+  email: '',
+  password: '',
+}
 
 export const LoginForm = (): JSX.Element => {
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
-    e.preventDefault()
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [error, setError] = useState<string | null>(null)
 
-    const values = Object.fromEntries(new FormData(e.currentTarget)) as Record<string, string>
+  const onSubmit = async (e: iValues): Promise<void> => {
+    try {
+      setIsLoading(true)
+      const res = await supabase.auth.signInWithPassword({
+        email: e.email,
+        password: e.password,
+      })
 
-    supabase.auth
-      .signInWithPassword({
-        email: values.email,
-        password: values.password,
-      })
-      .catch((err) => {
-        console.error({ err })
-      })
+      if (res.error != null) {
+        throw new Error(res.error.message)
+      }
+    } catch (error) {
+      const { message } = error as Error
+      setError(message)
+    } finally {
+      setIsLoading(false)
+    }
   }
+
+  const { handleChange, handleSubmit } = useFormik<iValues>({
+    initialValues,
+    onSubmit,
+  })
 
   return (
     <form className='form m-auto' onSubmit={handleSubmit}>
       <label htmlFor='email' className='text-sm'>
-        Email
-        <InputText name='email' placeholder='name@email.com' />
+        Correo electrónico
+        <InputText name='email' placeholder='name@email.com' onChange={handleChange} />
       </label>
       <label htmlFor='password' className='text-sm'>
         Contraseña
-        <InputText name='password' type='password' placeholder='******' />
+        <InputText name='password' type='password' placeholder='******' onChange={handleChange} />
       </label>
-      <Button type='submit'>Iniciar sesion</Button>
+      {error !== null ? <p className='text-red-500'>{error}</p> : null}
+      <Button isLoading={isLoading} type='submit'>
+        Iniciar sesión
+      </Button>
     </form>
   )
 }

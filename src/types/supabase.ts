@@ -9,142 +9,135 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
-      client_profile: {
+      _prisma_migrations: {
         Row: {
-          profile_id: string
           id: string
-          company_name: string | null
+          checksum: string
+          finished_at: string | null
+          migration_name: string
+          logs: string | null
+          rolled_back_at: string | null
+          started_at: string
+          applied_steps_count: number
         }
         Insert: {
-          profile_id: string
           id: string
-          company_name?: string | null
+          checksum: string
+          finished_at?: string | null
+          migration_name: string
+          logs?: string | null
+          rolled_back_at?: string | null
+          started_at?: string
+          applied_steps_count?: number
         }
         Update: {
-          profile_id?: string
           id?: string
-          company_name?: string | null
+          checksum?: string
+          finished_at?: string | null
+          migration_name?: string
+          logs?: string | null
+          rolled_back_at?: string | null
+          started_at?: string
+          applied_steps_count?: number
         }
       }
       device: {
         Row: {
           id: string
           name: string
-          description: string
-          inventory_id: string
+          description: string | null
+          external_code: string
+          internal_code: string
+          brand: string
+          model: string
+          serial_number: string
+          location: string
           image_url: string
           created_at: string
+          user_id: string
         }
         Insert: {
           id?: string
           name: string
-          description: string
-          inventory_id: string
+          description?: string | null
+          external_code: string
+          internal_code: string
+          brand: string
+          model: string
+          serial_number: string
+          location: string
           image_url: string
           created_at?: string
+          user_id: string
         }
         Update: {
           id?: string
           name?: string
-          description?: string
-          inventory_id?: string
+          description?: string | null
+          external_code?: string
+          internal_code?: string
+          brand?: string
+          model?: string
+          serial_number?: string
+          location?: string
           image_url?: string
           created_at?: string
-        }
-      }
-      intern_profile: {
-        Row: {
-          profile_id: string
-          id: string
-        }
-        Insert: {
-          profile_id: string
-          id?: string
-        }
-        Update: {
-          profile_id?: string
-          id?: string
-        }
-      }
-      inventory: {
-        Row: {
-          client_id: string
-          created_at: string
-          id: string
-        }
-        Insert: {
-          client_id: string
-          created_at?: string
-          id?: string
-        }
-        Update: {
-          client_id?: string
-          created_at?: string
-          id?: string
+          user_id?: string
         }
       }
       profile: {
         Row: {
+          id: string
           email: string
           first_name: string
           last_name: string
           created_at: string
-          role: Database["public"]["Enums"]["role"]
-          id: string
+          company_name: string | null
+          profile_picture: string | null
+          user_id: string
         }
         Insert: {
+          id?: string
           email: string
           first_name: string
           last_name: string
           created_at?: string
-          role: Database["public"]["Enums"]["role"]
-          id: string
+          company_name?: string | null
+          profile_picture?: string | null
+          user_id: string
         }
         Update: {
+          id?: string
           email?: string
           first_name?: string
           last_name?: string
           created_at?: string
-          role?: Database["public"]["Enums"]["role"]
-          id?: string
+          company_name?: string | null
+          profile_picture?: string | null
+          user_id?: string
         }
       }
-      ticket: {
+      user: {
         Row: {
-          name: string
-          description: string
-          device_id: string
-          status: Database["public"]["Enums"]["ticket_status"]
-          starts_at: string
-          finished_at: string | null
-          created_at: string
-          intern_id: string
-          client_id: string
           id: string
+          email: string
+          raw_user_meta_data: string
+          created_at: string
+          role: Database["public"]["Enums"]["role"]
         }
         Insert: {
-          name: string
-          description: string
-          device_id: string
-          status?: Database["public"]["Enums"]["ticket_status"]
-          starts_at: string
-          finished_at?: string | null
-          created_at?: string
-          intern_id: string
-          client_id: string
-          id?: string
+          id: string
+          email: string
+          raw_user_meta_data?: string
+          created_at: string
+          role: Database["public"]["Enums"]["role"]
         }
         Update: {
-          name?: string
-          description?: string
-          device_id?: string
-          status?: Database["public"]["Enums"]["ticket_status"]
-          starts_at?: string
-          finished_at?: string | null
-          created_at?: string
-          intern_id?: string
-          client_id?: string
           id?: string
+          email?: string
+          raw_user_meta_data?: string
+          created_at?: string
+          role?: Database["public"]["Enums"]["role"]
         }
       }
     }
@@ -156,7 +149,6 @@ export interface Database {
     }
     Enums: {
       role: "CLIENT" | "INTERN" | "ADMIN"
-      ticket_status: "NOT_STARTED" | "ACTIVE" | "CLOSED"
     }
   }
 }

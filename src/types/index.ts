@@ -23,12 +23,10 @@ export interface iDestroyModelHook<Model> {
   error: Error | null
 }
 
-export type iProfile = Database['public']['Tables']['profile']['Row'] & {
-  intern_profile?: Database['public']['Tables']['intern_profile']['Row']
-  client_profile?: Database['public']['Tables']['client_profile']['Row'] & {
-    inventory: Database['public']['Tables']['inventory']['Row']
-  }
+export type iUser = Database['public']['Tables']['user']['Row'] & {
+  profile: Database['public']['Tables']['profile']['Row'] | null
 }
+export type iProfile = Database['public']['Tables']['profile']['Row']
 
 export type iTicket = Database['public']['Tables']['ticket']['Row']
 export type iInsertTicket = Database['public']['Tables']['ticket']['Insert']

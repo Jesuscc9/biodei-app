@@ -2,14 +2,11 @@ import { iInsertModelHook, iDevice, iInsertDevice } from '../../../types'
 import { useState } from 'react'
 import { supabase } from '../../../services/supabaseService'
 import { mutate } from 'swr'
-import { useProfile } from '../profile'
+import { useUser } from '../user'
 
 export const useInsertDevice = (): iInsertModelHook<iDevice, iInsertDevice> => {
-  const { data: profile } = useProfile()
-
-  const inventoryId = profile?.client_profile?.inventory.id ?? ''
-
   const [isLoading, setIsLoading] = useState<boolean>(false)
+  const { data: user } = useUser()
 
   const create = async (values: iInsertDevice): Promise<iDevice> => {
     setIsLoading(true)
@@ -17,7 +14,7 @@ export const useInsertDevice = (): iInsertModelHook<iDevice, iInsertDevice> => {
     try {
       const res = await supabase
         .from('device')
-        .insert({ ...values, inventory_id: inventoryId })
+        .insert({ ...values, user_id: user?.id ?? '' })
         .single()
 
       await mutate('/devices')

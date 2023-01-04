@@ -1,14 +1,16 @@
 import React from 'react'
 import { Outlet, Link } from 'react-router-dom'
-import { useProfile } from '../../hooks/models'
+import { useUser } from '../../hooks/models'
 import { supabase } from '../../services/supabaseService'
 
 export const Navbar = (): JSX.Element => {
-  const { data: profile } = useProfile()
+  const { data: user } = useUser()
 
   const handleLogout = (): void => {
     supabase.auth.signOut().catch((error) => console.error(error))
   }
+
+  console.log({ user })
 
   return (
     <>
@@ -33,11 +35,11 @@ export const Navbar = (): JSX.Element => {
             </li>
           </ul>
         </div>
-        {profile !== undefined ? (
+        {user !== undefined ? (
           <div className='flex gap-2 items-center py-1.5'>
-            <h1>{profile.first_name}</h1>
-            <h1>{profile.last_name}</h1>
-            <div className='ml-3 text-xs bg-green-500 bg-opacity-50 px-3 py-1 rounded-full'>{profile.role}</div>
+            <h1>{user.profile?.first_name}</h1>
+            <h1>{user.profile?.last_name}</h1>
+            <div className='ml-3 text-xs bg-green-500 bg-opacity-50 px-3 py-1 rounded-full'>{user.role}</div>
             <button
               title='Cerrar sesion'
               onClick={handleLogout}

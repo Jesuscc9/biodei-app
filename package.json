@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "update-types": "npx supabase gen types typescript --project-id 'siucmewjgzivxkjnyamv' --schema public > src/types/supabase.ts"
+    "update-types": "npx supabase gen types typescript --project-id 'htxmgzdedgeofjxqjurt' --schema public > src/types/supabase.ts"
   },
   "dependencies": {
     "@prisma/client": "4.6.1",
@@ -17,6 +17,7 @@
     "@supabase/supabase-js": "2.2.0",
     "@types/node": "18.11.9",
     "@types/react": "18.0.25",
+    "@uiball/loaders": "^1.2.6",
     "axios": "1.2.1",
     "formik": "^2.2.9",
     "javascript-time-ago": "^2.5.9",

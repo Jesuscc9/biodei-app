@@ -21,14 +21,14 @@ export const Device = ({ device }: iProps): JSX.Element => {
         <Button
           onClick={() => handleDestroy(device.id)}
           isLoading={isLoadingDelete}
-          className='bg-red-500 rounded-md px-4 py-2 text-white'
+          className='bg-red-500 hover:bg-red-600 rounded-md px-4 py-2 text-sm text-white'
         >
-          Deleteee
+          Delete
         </Button>
       </div>
       <p className='text-gray-500'>{device.description}</p>
-      <img src={device.image_url} className='' alt='' />
-      <p className='text-gray-400 text-xs text-right'>{device.id}</p>
+      <img src={device.image_url} className='w-52 my-4' alt='' />
+      <p className='text-gray-400 text-xs self-end'>{device.id}</p>
     </div>
   )
 }

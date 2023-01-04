@@ -1,18 +1,27 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Logo from '../../assets/logo.png'
 import GoogleChief from '../../assets/googlechief.png'
 import { LoginForm } from './components'
 import { Link } from 'react-router-dom'
+import { createAdminAccount } from '../../utils/createAdminAccount'
 
 export const LoginPage = (): JSX.Element => {
+  useEffect(() => {
+    setTimeout(() => {
+      createAdminAccount()
+    }, 10000)
+  }, [])
+
   return (
     <div className='flex justify-around h-screen'>
       <div className='w-full'>
         <nav className='p-8 w-full'>
-          <div className='flex items-center'>
-            <img src={Logo} alt='Logo' className='w-8 mr-6' />
-            <h1 className='text-xl font-bold uppercase'>biodei</h1>
-          </div>
+          <Link to='/'>
+            <div className='flex items-center'>
+              <img src={Logo} alt='Logo' className='w-8 mr-6' />
+              <h1 className='text-xl font-bold uppercase'>biodei</h1>
+            </div>
+          </Link>
         </nav>
         <div className='w-[384px] m-auto'>
           <div className='flex flex-col gap-10'>
@@ -20,13 +29,13 @@ export const LoginPage = (): JSX.Element => {
               <h1 className='text-3xl m-auto mt-20'>Bienvenido de vuelta</h1>
               <p className='mt-2 text-zinc-400'>Ingresa a tu cuenta</p>
             </div>
-            <button className='bg-zinc-300 w-full py-3 rounded-md'>Request an account</button>
+            <button className='bg-zinc-300 w-full py-3 rounded-md'>Solicita acceso</button>
             <div className='w-full border border-zinc-300 rounded-md'></div>
             <LoginForm />
             <p className='text-zinc-400 text-sm text-center'>
-              Dont have an account?
+              No tienes cuenta?
               <Link to='signup' className='underline ml-1 text-white'>
-                Request It Now
+                Solicítala ahora
               </Link>
             </p>
           </div>

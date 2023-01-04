@@ -1,6 +1,7 @@
-import type { Session, User } from '@supabase/supabase-js'
+import type { AuthChangeEvent, Session, User } from '@supabase/supabase-js'
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import { supabase } from '../services/supabaseService'
+import { useNavigate } from 'react-router-dom'
 
 interface iAuthContext {
   session: null | Session
@@ -12,6 +13,9 @@ export const AuthContext = createContext<iAuthContext>({} as iAuthContext)
 export const AuthProvider = ({ children }: { children: React.ReactNode }): JSX.Element => {
   const [session, setSession] = useState<null | Session>(null)
   const [user, setUser] = useState<null | User>(null)
+  const [currentEvent, setCurrentEvent] = useState<AuthChangeEvent | null>(null)
+
+  const navigate = useNavigate()
 
   useEffect(() => {
     const loadData = async (): Promise<void> => {
@@ -26,6 +30,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }): JSX.E
     const { data: authListener } = supabase.auth.onAuthStateChange((event, currentSession) => {
       setSession(currentSession)
       setUser(currentSession?.user ?? null)
+      setCurrentEvent(event)
 
       console.info('Auth state changed:', event, currentSession)
     })
@@ -34,6 +39,16 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }): JSX.E
       authListener.subscription.unsubscribe()
     }
   }, [])
+
+  useEffect(() => {
+    if (currentEvent === 'SIGNED_IN') {
+      navigate('/devices')
+    }
+
+    if (currentEvent === 'SIGNED_OUT') {
+      navigate('/login')
+    }
+  }, [currentEvent])
 
   return (
     <AuthContext.Provider

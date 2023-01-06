@@ -17,44 +17,51 @@ const initialValues: iInsertDevice = {
   user_id: '',
 }
 
-export const InsertDeviceForm = (): JSX.Element => {
+export const InsertDeviceForm = ({ onSubmit }: { onSubmit?: () => void }): JSX.Element => {
   const { isLoading, create } = useInsertDevice()
 
   const { handleSubmit, handleChange } = useFormik<iInsertDevice>({
     initialValues,
     onSubmit: async (e) => {
-      await create(e)
+      try {
+        await create(e)
+        onSubmit?.()
+      } catch {}
     },
     enableReinitialize: true,
   })
 
   return (
-    <form onSubmit={handleSubmit} className='my-10 m-auto p-10 border rounded-md w-[500px] flex flex-col gap-6'>
+    <form onSubmit={handleSubmit} className='m-auto p-10 rounded-md w-[540px] flex flex-col gap-6'>
       <h1 className='text-center text-xl uppercase font-bold'>Crear dispositivo</h1>
       <label htmlFor='name'>
         Nombre
         <InputText placeholder='Osciloscopio' name='name' onChange={handleChange} />
       </label>
 
-      <label htmlFor='external_code'>
-        Codigo externo
-        <InputText placeholder='Codigo externo' name='external_code' onChange={handleChange} />
-      </label>
+      <div className='flex gap-4'>
+        <label htmlFor='external_code'>
+          Codigo externo
+          <InputText placeholder='Codigo externo' name='external_code' onChange={handleChange} />
+        </label>
 
-      <label htmlFor='internal_code'>
-        Codigo interno
-        <InputText placeholder='Codigo interno' name='internal_code' onChange={handleChange} />
-      </label>
+        <label htmlFor='internal_code'>
+          Codigo interno
+          <InputText placeholder='Codigo interno' name='internal_code' onChange={handleChange} />
+        </label>
+      </div>
 
-      <label htmlFor='brand'>
-        Marca
-        <InputText placeholder='Marca' name='brand' onChange={handleChange} />
-      </label>
+      <div className='flex gap-4'>
+        <label htmlFor='brand'>
+          Marca
+          <InputText placeholder='Marca' name='brand' onChange={handleChange} />
+        </label>
 
-      <label htmlFor='model'>
-        Modelo
-        <InputText placeholder='Modelo' name='model' onChange={handleChange} />
-      </label>
+        <label htmlFor='model'>
+          Modelo
+          <InputText placeholder='Modelo' name='model' onChange={handleChange} />
+        </label>
+      </div>
 
       <label htmlFor='serial_number'>
         Numero de serie

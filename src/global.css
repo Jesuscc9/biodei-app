@@ -9,3 +9,15 @@
   flex-direction: column;
   gap: 1.4rem;
 }
+
+.custom-dropdown {
+  @apply border-green-500 bg-zinc-800 rounded-full whitespace-nowrap text-xs py-1.5 text-green-500;
+}
+
+.custom-select__input {
+  @apply text-white;
+}
+
+.custom-select__single-value {
+  color: white !important;
+}

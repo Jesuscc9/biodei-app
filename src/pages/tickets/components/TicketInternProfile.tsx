@@ -19,7 +19,6 @@ const getInternProfile = async (params: string[]): Promise<iProfile> => {
 
 export const TicketInternProfile = (ticket: iTicket): JSX.Element => {
   const data = useSWR(`/profiles/${ticket.intern_id}`, getInternProfile)
-  console.log({ data })
 
   return <div>Este es el perfil</div>
 }

@@ -3,7 +3,10 @@ import useSWR from 'swr'
 import { supabase } from '../../../services/supabaseService'
 
 const getDevices = async (): Promise<iDevice[]> => {
-  const res = await supabase.from('device').select('*')
+  const res = await supabase.from('device').select('*, maintenance ( * )')
+  if (res.error !== null) {
+    throw new Error(res.error.message)
+  }
   const devices = res.data as iDevice[]
   return devices
 }

@@ -10,8 +10,6 @@ export const Navbar = (): JSX.Element => {
     supabase.auth.signOut().catch((error) => console.error(error))
   }
 
-  console.log({ user })
-
   return (
     <>
       <nav className='p-6 px-10 border-zinc-300 border-b flex justify-between items-center bg-zinc-800 text-white'>

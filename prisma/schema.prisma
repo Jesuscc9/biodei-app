@@ -43,6 +43,31 @@ model device {
   created_at    DateTime @default(now())
   user_id       String
   user          user     @relation(fields: [user_id], references: [id])
+  maintenance  maintenance[]
+}
+
+model maintenance {
+  id          String   @id @unique @default(dbgenerated("uuid_generate_v4()"))
+  title       maintenances
+  type        maintenances_type
+  description String
+  created_at  DateTime @default(now())
+  device_id   String
+  device      device   @relation(fields: [device_id], references: [id])
+}
+
+enum maintenances {
+  NEEDS_MAINTENANCE
+  DO_NOT_NEED_MAINTENANCE
+  MAINTENANCE_REQUESTED
+  MAINTENANCE_ACCEPTED
+  MAINTAINING
+  MAINTAINED
+}
+
+enum maintenances_type {
+  PREVENTIVE
+  CORRECTIVE
 }
 
 enum role {

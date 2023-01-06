@@ -85,6 +85,32 @@ export interface Database {
           user_id?: string
         }
       }
+      maintenance: {
+        Row: {
+          id: string
+          title: Database["public"]["Enums"]["maintenances"]
+          type: Database["public"]["Enums"]["maintenances_type"]
+          description: string
+          created_at: string
+          device_id: string
+        }
+        Insert: {
+          id?: string
+          title: Database["public"]["Enums"]["maintenances"]
+          type: Database["public"]["Enums"]["maintenances_type"]
+          description: string
+          created_at?: string
+          device_id: string
+        }
+        Update: {
+          id?: string
+          title?: Database["public"]["Enums"]["maintenances"]
+          type?: Database["public"]["Enums"]["maintenances_type"]
+          description?: string
+          created_at?: string
+          device_id?: string
+        }
+      }
       profile: {
         Row: {
           id: string
@@ -148,6 +174,14 @@ export interface Database {
       [_ in never]: never
     }
     Enums: {
+      maintenances:
+        | "NEEDS_MAINTENANCE"
+        | "DO_NOT_NEED_MAINTENANCE"
+        | "MAINTENANCE_REQUESTED"
+        | "MAINTENANCE_ACCEPTED"
+        | "MAINTAINING"
+        | "MAINTAINED"
+      maintenances_type: "PREVENTIVE" | "CORRECTIVE"
       role: "CLIENT" | "INTERN" | "ADMIN"
     }
   }

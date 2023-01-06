@@ -1,3 +1,5 @@
 export * from './InputText'
+export * from './InputSelect'
 export * from './Navbar'
+export * from './Modal'
 export * from './Button'

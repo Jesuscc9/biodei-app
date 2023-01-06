@@ -25,13 +25,19 @@ export interface iDestroyModelHook<Model> {
 
 export type iUser = Database['public']['Tables']['user']['Row'] & {
   profile: Database['public']['Tables']['profile']['Row'] | null
+  devices: Array<Database['public']['Tables']['device']['Row']>
 }
+
 export type iProfile = Database['public']['Tables']['profile']['Row']
 
-export type iTicket = Database['public']['Tables']['ticket']['Row']
-export type iInsertTicket = Database['public']['Tables']['ticket']['Insert']
-export type iUpdateTicket = Database['public']['Tables']['ticket']['Update']
+export type iDevice = Database['public']['Tables']['device']['Row'] & {
+  maintenance: Array<Database['public']['Tables']['maintenance']['Row']> | null
+}
 
-export type iDevice = Database['public']['Tables']['device']['Row']
+export type iMaintenanceTitles = Database['public']['Tables']['maintenance']['Row']['title']
 
 export type iInsertDevice = Database['public']['Tables']['device']['Insert']
+
+export type iMaintenance = Database['public']['Tables']['maintenance']['Row']
+
+export type iInsertMaintenance = Database['public']['Tables']['maintenance']['Insert']

@@ -25,8 +25,8 @@ model profile {
   created_at      DateTime @default(now())
   company_name    String?
   profile_picture String?
-  user_id         String   @unique
   user            user     @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  user_id         String   @unique
 }
 
 model device {
@@ -43,26 +43,30 @@ model device {
   created_at    DateTime @default(now())
   user_id       String
   user          user     @relation(fields: [user_id], references: [id])
-  maintenance  maintenance[]
+  ticket        ticket[]
 }
 
-model maintenance {
+model update {
   id          String   @id @unique @default(dbgenerated("uuid_generate_v4()"))
   title       maintenances
-  type        maintenances_type
   description String
   created_at  DateTime @default(now())
+  ticket_id   String
+  ticket      ticket   @relation(fields: [ticket_id], references: [id])
+}
+
+model ticket {
+  id          String   @id @unique @default(dbgenerated("uuid_generate_v4()"))
+  maintenance_type     maintenances_type
+  update               update[]
+  description String?
+  created_at  DateTime @default(now())
   device_id   String
-  device      device   @relation(fields: [device_id], references: [id])
+  device      device  @relation(fields: [device_id], references: [id])
 }
 
 enum maintenances {
-  NEEDS_MAINTENANCE
-  DO_NOT_NEED_MAINTENANCE
-  MAINTENANCE_REQUESTED
-  MAINTENANCE_ACCEPTED
   MAINTAINING
-  MAINTAINED
 }
 
 enum maintenances_type {

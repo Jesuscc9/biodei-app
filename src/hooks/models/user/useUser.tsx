@@ -1,24 +1,46 @@
+import { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import useSWR from 'swr'
 import { supabase } from '../../../services/supabaseService'
 import { iModelHook, iUser } from '../../../types'
-import { useAuth } from '../../AuthProvider'
-import useSWR from 'swr'
 
-const getUser = async (params: string[]): Promise<iUser> => {
-  const { 1: userId } = params
-  const res: any = await supabase.from('user').select('*, profile ( * )').eq('id', userId).single()
+const getUser = async (): Promise<iUser> => {
+  const fetchUser = await supabase.auth.getUser()
 
-  const user = res?.data ?? ({} as iUser)
+  if (fetchUser.error != null) {
+    throw new Error(fetchUser.error.message)
+  }
+
+  const userId = fetchUser?.data.user.id
+
+  if (userId === undefined) throw new Error('No user id')
+
+  const res = await supabase.from('user').select('*, profile ( * ), devices:device (*)').eq('id', userId).single()
+
+  if (res.error != null) throw new Error(res.error.message)
+
+  if (res.data === null) throw new Error('No user data')
+
+  const user: any = res.data
   return user
 }
 
 export const useUser = (): iModelHook<iUser> => {
-  const { user } = useAuth()
+  const navigate = useNavigate()
 
-  const shouldFetch = typeof user?.id !== 'undefined'
-
-  const res = useSWR<iUser>(shouldFetch && ['/profile', user?.id], getUser)
+  const res = useSWR<iUser>('/user', getUser)
 
   const isLoading = res.data === undefined && res.error === undefined
+
+  useEffect(() => {
+    if (res.data === undefined) return
+
+    if (res.data.role === 'ADMIN') {
+      navigate('/admin/devices', { replace: true })
+    } else {
+      navigate('/devices', { replace: true })
+    }
+  }, [res.data?.role ?? ''])
 
   return {
     ...res,

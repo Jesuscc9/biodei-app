@@ -1,5 +1,5 @@
 import React from 'react'
-import { Outlet, Link } from 'react-router-dom'
+import { Link, Outlet } from 'react-router-dom'
 import { useUser } from '../../hooks/models'
 import { supabase } from '../../services/supabaseService'
 
@@ -9,6 +9,8 @@ export const Navbar = (): JSX.Element => {
   const handleLogout = (): void => {
     supabase.auth.signOut().catch((error) => console.error(error))
   }
+
+  const isAdmin = user?.role === 'ADMIN'
 
   return (
     <>
@@ -21,16 +23,21 @@ export const Navbar = (): JSX.Element => {
                 Tickets
               </Link>
             </li>
-            <li>
-              <Link to='devices' className='hover:underline'>
-                Devices
-              </Link>
-            </li>
-            <li>
-              <Link to='users' className='hover:underline'>
-                Users
-              </Link>
-            </li>
+            {isAdmin ? (
+              <>
+                <li>
+                  <Link to='/admin/devices' className='hover:underline'>
+                    Devices
+                  </Link>
+                </li>
+
+                <li>
+                  <Link to='/admin/users' className='hover:underline'>
+                    Users
+                  </Link>
+                </li>
+              </>
+            ) : null}
           </ul>
         </div>
         {user !== undefined ? (

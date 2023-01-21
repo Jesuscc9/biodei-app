@@ -11,158 +11,178 @@ export interface Database {
     Tables: {
       _prisma_migrations: {
         Row: {
-          id: string
+          applied_steps_count: number
           checksum: string
           finished_at: string | null
-          migration_name: string
+          id: string
           logs: string | null
+          migration_name: string
           rolled_back_at: string | null
           started_at: string
-          applied_steps_count: number
         }
         Insert: {
-          id: string
+          applied_steps_count?: number
           checksum: string
           finished_at?: string | null
-          migration_name: string
+          id: string
           logs?: string | null
+          migration_name: string
           rolled_back_at?: string | null
           started_at?: string
-          applied_steps_count?: number
         }
         Update: {
-          id?: string
+          applied_steps_count?: number
           checksum?: string
           finished_at?: string | null
-          migration_name?: string
+          id?: string
           logs?: string | null
+          migration_name?: string
           rolled_back_at?: string | null
           started_at?: string
-          applied_steps_count?: number
         }
       }
       device: {
         Row: {
-          id: string
-          name: string
+          brand: string
+          created_at: string
           description: string | null
           external_code: string
-          internal_code: string
-          brand: string
-          model: string
-          serial_number: string
-          location: string
+          id: string
           image_url: string
-          created_at: string
+          internal_code: string
+          location: string
+          model: string
+          name: string
+          serial_number: string
           user_id: string
         }
         Insert: {
-          id?: string
-          name: string
+          brand: string
+          created_at?: string
           description?: string | null
           external_code: string
-          internal_code: string
-          brand: string
-          model: string
-          serial_number: string
-          location: string
+          id?: string
           image_url: string
-          created_at?: string
+          internal_code: string
+          location: string
+          model: string
+          name: string
+          serial_number: string
           user_id: string
         }
         Update: {
-          id?: string
-          name?: string
+          brand?: string
+          created_at?: string
           description?: string | null
           external_code?: string
-          internal_code?: string
-          brand?: string
-          model?: string
-          serial_number?: string
-          location?: string
+          id?: string
           image_url?: string
-          created_at?: string
+          internal_code?: string
+          location?: string
+          model?: string
+          name?: string
+          serial_number?: string
           user_id?: string
-        }
-      }
-      maintenance: {
-        Row: {
-          id: string
-          title: Database["public"]["Enums"]["maintenances"]
-          type: Database["public"]["Enums"]["maintenances_type"]
-          description: string
-          created_at: string
-          device_id: string
-        }
-        Insert: {
-          id?: string
-          title: Database["public"]["Enums"]["maintenances"]
-          type: Database["public"]["Enums"]["maintenances_type"]
-          description: string
-          created_at?: string
-          device_id: string
-        }
-        Update: {
-          id?: string
-          title?: Database["public"]["Enums"]["maintenances"]
-          type?: Database["public"]["Enums"]["maintenances_type"]
-          description?: string
-          created_at?: string
-          device_id?: string
         }
       }
       profile: {
         Row: {
-          id: string
+          company_name: string | null
+          created_at: string
           email: string
           first_name: string
+          id: string
           last_name: string
-          created_at: string
-          company_name: string | null
           profile_picture: string | null
           user_id: string
         }
         Insert: {
-          id?: string
+          company_name?: string | null
+          created_at?: string
           email: string
           first_name: string
+          id?: string
           last_name: string
-          created_at?: string
-          company_name?: string | null
           profile_picture?: string | null
           user_id: string
         }
         Update: {
-          id?: string
+          company_name?: string | null
+          created_at?: string
           email?: string
           first_name?: string
+          id?: string
           last_name?: string
-          created_at?: string
-          company_name?: string | null
           profile_picture?: string | null
           user_id?: string
         }
       }
+      ticket: {
+        Row: {
+          created_at: string
+          description: string | null
+          device_id: string
+          id: string
+          maintenance_type: Database["public"]["Enums"]["maintenances_type"]
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          device_id: string
+          id?: string
+          maintenance_type: Database["public"]["Enums"]["maintenances_type"]
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          device_id?: string
+          id?: string
+          maintenance_type?: Database["public"]["Enums"]["maintenances_type"]
+        }
+      }
+      update: {
+        Row: {
+          created_at: string
+          description: string
+          id: string
+          ticket_id: string
+          title: Database["public"]["Enums"]["maintenances"]
+        }
+        Insert: {
+          created_at?: string
+          description: string
+          id?: string
+          ticket_id: string
+          title: Database["public"]["Enums"]["maintenances"]
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          id?: string
+          ticket_id?: string
+          title?: Database["public"]["Enums"]["maintenances"]
+        }
+      }
       user: {
         Row: {
-          id: string
-          email: string
-          raw_user_meta_data: string
           created_at: string
+          email: string
+          id: string
+          raw_user_meta_data: string
           role: Database["public"]["Enums"]["role"]
         }
         Insert: {
-          id: string
-          email: string
-          raw_user_meta_data?: string
           created_at: string
+          email: string
+          id: string
+          raw_user_meta_data?: string
           role: Database["public"]["Enums"]["role"]
         }
         Update: {
-          id?: string
-          email?: string
-          raw_user_meta_data?: string
           created_at?: string
+          email?: string
+          id?: string
+          raw_user_meta_data?: string
           role?: Database["public"]["Enums"]["role"]
         }
       }
@@ -174,13 +194,7 @@ export interface Database {
       [_ in never]: never
     }
     Enums: {
-      maintenances:
-        | "NEEDS_MAINTENANCE"
-        | "DO_NOT_NEED_MAINTENANCE"
-        | "MAINTENANCE_REQUESTED"
-        | "MAINTENANCE_ACCEPTED"
-        | "MAINTAINING"
-        | "MAINTAINED"
+      maintenances: "MAINTAINING"
       maintenances_type: "PREVENTIVE" | "CORRECTIVE"
       role: "CLIENT" | "INTERN" | "ADMIN"
     }

@@ -3,13 +3,10 @@ import Logo from '../../assets/logo.png'
 import GoogleChief from '../../assets/googlechief.png'
 import { LoginForm } from './components'
 import { Link } from 'react-router-dom'
-import { createAdminAccount } from '../../utils/createAdminAccount'
 
 export const LoginPage = (): JSX.Element => {
   useEffect(() => {
-    setTimeout(() => {
-      createAdminAccount()
-    }, 10000)
+    setTimeout(() => {}, 7000)
   }, [])
 
   return (

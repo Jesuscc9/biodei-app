@@ -1,10 +1,10 @@
 import React from 'react'
-import { Routes, Route, Outlet } from 'react-router-dom'
-import { HomePage, SignupPage } from '../pages'
+import { Outlet, Route, Routes } from 'react-router-dom'
+import { DeviceDetailPage, DevicesPage as AdminDevicesPage, UsersPage } from '../pages/admin'
 import { DevicesPage, NewDevicePage } from '../pages/devices'
-import { NewMaintenancePage } from '../pages/devices/maintenance'
+
 import { LoginPage } from '../pages/login'
-import { TicketsPage, NewTicketPage, TicketDetailPage } from '../pages/tickets'
+import { NewTicketPage, TicketDetailPage, TicketsPage } from '../pages/tickets'
 
 import { Navbar } from '../components'
 
@@ -14,11 +14,43 @@ export const Router = (): JSX.Element => {
       <Route path='login' element={<LoginPage />} />
       <Route index element={<LoginPage />} />
       <Route path='/' element={<Navbar />}>
-        <Route path='signup' element={<SignupPage />} />
         <Route path='tickets' element={<Outlet />}>
           <Route index element={<TicketsPage />} />
           <Route path=':ticketId' element={<TicketDetailPage />} />
           <Route path='new' element={<NewTicketPage />} />
+        </Route>
+        <Route path='admin' element={<Outlet />}>
+          <Route
+            path='devices'
+            element={
+              <>
+                <AdminDevicesPage />
+                <Outlet />
+              </>
+            }
+          >
+            <Route index element={<Outlet />} />
+          </Route>
+          <Route
+            path='devices/:deviceId'
+            element={
+              <>
+                <Outlet />
+                <DeviceDetailPage />
+              </>
+            }
+          />
+          <Route
+            path='users'
+            element={
+              <>
+                <UsersPage />
+                <Outlet />
+              </>
+            }
+          >
+            <Route index element={<Outlet />} />
+          </Route>
         </Route>
         <Route
           path='devices'
@@ -32,7 +64,7 @@ export const Router = (): JSX.Element => {
           <Route index element={<Outlet />} />
           <Route path=':deviceId' element={<div>device con id</div>} />
           <Route path='new' element={<NewDevicePage />} />
-          <Route path='maintenance' element={<NewMaintenancePage />} />
+          <Route path='ticket' element={<NewTicketPage />} />
         </Route>
       </Route>
     </Routes>

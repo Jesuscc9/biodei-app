@@ -1,11 +1,9 @@
-import React, { useState } from 'react'
 import { Ring as Loader } from '@uiball/loaders'
-import { useDeleteDevice, useDevices } from '../../../hooks/models'
-import { iDevice, iMaintenanceTitles } from '../../../types'
-import Dropdown, { Option } from 'react-dropdown'
+import React from 'react'
 import 'react-dropdown/style.css'
-import { Modal } from '../../../components'
 import { Link } from 'react-router-dom'
+import { useDeleteDevice, useDevices } from '../../../hooks/models'
+import { iDevice } from '../../../types'
 
 export const DevicesList = (): JSX.Element => {
   const { data: devices, isLoading, error } = useDevices()
@@ -94,7 +92,7 @@ export const DevicesList = (): JSX.Element => {
   )
 }
 
-const StatusClasses: Record<iMaintenanceTitles, string> = {
+const StatusClasses: Record<string, string> = {
   MAINTENANCE_REQUESTED: 'border-yellow-500 text-yellow-500',
   MAINTENANCE_ACCEPTED: 'border-orange-500 text-orange-500',
   MAINTAINED: 'border-green-500 text-green-500',
@@ -104,37 +102,30 @@ const StatusClasses: Record<iMaintenanceTitles, string> = {
 }
 
 const Status = ({ device }: { device: iDevice }): JSX.Element => {
-  const lastMaintenance = device?.maintenance?.[device.maintenance.length - 1]
-
-  const hasMaintenance = lastMaintenance !== undefined
+  const hasAnyTicket = device.tickets != null && device.tickets?.length > 0
 
   return (
     <>
-      {hasMaintenance ? (
+      {hasAnyTicket ? (
         <td className='px-6 py-4'>
-          <div
+          {/* <div
             className={`bg-zinc-800 border-2 text-xs py-1.5 px-3 rounded-full whitespace-nowrap font-semibold uppercase w-min ${
-              StatusClasses[lastMaintenance.title]
+              StatusClasses[lastTicket?.maintenance_type ?? '']
             }`}
           >
+            MANTENIMIENTO EN ESPERA DE ASIGNACION
             {lastMaintenance.title === 'MAINTENANCE_REQUESTED' &&
               `Mantenimiento ${lastMaintenance.type === 'PREVENTIVE' ? 'preventivo' : 'correctivo'} solicitado`}
-          </div>
+          </div> */}
+          mantenimiento solicitado
         </td>
       ) : (
         <td className='px-6 py-4'>
-          {/* <Dropdown
-            options={options}
-            placeholder='Solicita mantenimiento'
-            onChange={handleChange}
-            controlClassName='custom-dropdown'
-          /> */}
-
           <div className='bg-zinc-800 text-gray-400 border-2 font-semibold border-gray-400 text-xs py-1.5 px-3 rounded-full whitespace-nowrap w-min uppercase'>
             Inactivo
           </div>
 
-          <Link to={`maintenance?deviceId=${device.id}`}>
+          <Link to={`ticket?deviceId=${device.id}`}>
             <button type='button' className='underline text-gray-300 text-xs whitespace-nowrap mt-2'>
               Solicita mantenimiento
             </button>

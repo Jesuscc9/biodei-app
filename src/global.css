@@ -11,7 +11,7 @@
 }
 
 .custom-dropdown {
-  @apply border-green-500 bg-zinc-800 rounded-full whitespace-nowrap text-xs py-1.5 text-green-500;
+  @apply border-2 font-semibold uppercase bg-zinc-800 rounded-full whitespace-nowrap text-xs py-1.5;
 }
 
 .custom-select__input {

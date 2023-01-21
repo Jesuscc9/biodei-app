@@ -37,7 +37,7 @@ export const TicketStatus = ({ status }: iProps): JSX.Element => {
     if (ticketId === undefined) return
     update(ticketId, { status: ticketStatus })
       .then(async () => await mutate())
-      .catch((e) => console.log(e))
+      .catch((e) => console.error(e))
   }, [ticketStatus])
 
   return (

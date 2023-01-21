@@ -20,36 +20,3 @@ begin
 
   return new;
 end;
-
-
-
-// create_role_profile_for_each_profile
-
-begin
-
-  if new.role = 'CLIENT' then
-    insert into public.client_profile(profile_id)
-    values(new.id);
-  end if;
-
-  if new.role = 'INTERN' then
-    insert into public.intern_profile(profile_id)
-    values(new.id);
-  end if;
-
-  return new;
-end;
-
-// create_inventory_for_clients
-
-begin
-  
-  insert into public.inventory (client_id) values (new.id);
-
-  return new;
-
-end;
-Footer
-
-
-// Add row statement

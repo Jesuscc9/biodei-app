@@ -1,16 +1,20 @@
 import React, { useState } from 'react'
-import { supabase } from '../services/supabaseService'
-import { createAdminAccount, emailAdmin } from '../utils/createAdminAccount'
+import { supabase } from '../../../services'
+import { Button } from '../../../components'
+import { createAdminAccount, emailAdmin } from '../../../utils/createAdminAccount'
 
-export const SignupPage = (): JSX.Element => {
+export const UsersPage = (): JSX.Element => {
   const [email, setEmail] = useState<string>('')
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const disableEmail = email === emailAdmin
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
 
-    const values: any = Object.fromEntries(new FormData(e.currentTarget))
+    setIsLoading(true)
+
+    const values = Object.fromEntries(new FormData(e.currentTarget)) as Record<string, string>
 
     supabase.auth
       .signUp({
@@ -26,12 +30,13 @@ export const SignupPage = (): JSX.Element => {
         },
       })
       .catch((error) => console.error(error))
+      .finally(() => setIsLoading(false))
   }
 
   return (
     <div>
       <h1 className='text-3xl m-auto mt-20 text-center'>Registrate</h1>
-      <form className='form m-auto mt-10 border p-10 rounded-md' onSubmit={handleSubmit}>
+      <form className='w-[500px] flex flex-col gap-5 m-auto mt-10 border p-10 rounded-md' onSubmit={handleSubmit}>
         <div className='flex gap-2'>
           <label htmlFor='first_name'>
             Nombre(s)
@@ -79,6 +84,17 @@ export const SignupPage = (): JSX.Element => {
           </select>
         </label>
 
+        <label htmlFor='company_name'>
+          Nombre de la empresa
+          <input
+            id='company_name'
+            type='text'
+            className='w-full p-3 mt-2 border rounded-md text-black'
+            name='company_name'
+            placeholder='Biodei'
+          />
+        </label>
+
         <label htmlFor='password'>
           Contraseña
           <input
@@ -90,13 +106,9 @@ export const SignupPage = (): JSX.Element => {
           />
         </label>
 
-        <button
-          type='submit'
-          disabled={disableEmail}
-          className='w-full p-3 py-4 mt-2 disabled:bg-green-300 rounded-md bg-green-500 hover:bg-green-600 text-white text-sm'
-        >
+        <Button type='submit' isLoading={isLoading}>
           CONTINUAR
-        </button>
+        </Button>
       </form>
 
       <div className='form border m-auto mt-20 p-10'>

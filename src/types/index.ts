@@ -30,14 +30,18 @@ export type iUser = Database['public']['Tables']['user']['Row'] & {
 
 export type iProfile = Database['public']['Tables']['profile']['Row']
 
-export type iDevice = Database['public']['Tables']['device']['Row'] & {
-  maintenance: Array<Database['public']['Tables']['maintenance']['Row']> | null
-}
+// DEVICE MODEL
 
-export type iMaintenanceTitles = Database['public']['Tables']['maintenance']['Row']['title']
+export type iDevice = Database['public']['Tables']['device']['Row'] & {
+  tickets: Array<Database['public']['Tables']['ticket']['Row']> | null
+}
 
 export type iInsertDevice = Database['public']['Tables']['device']['Insert']
 
-export type iMaintenance = Database['public']['Tables']['maintenance']['Row']
+// TICKET MODEL
 
-export type iInsertMaintenance = Database['public']['Tables']['maintenance']['Insert']
+export type iTicket = Database['public']['Tables']['ticket']['Row']
+
+export type iInsertTicket = Database['public']['Tables']['ticket']['Insert']
+
+export type iUpdateTicket = Database['public']['Tables']['ticket']['Update']

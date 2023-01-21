@@ -4,6 +4,9 @@ import { supabase } from '../../../services/supabaseService'
 
 const getTickets = async (): Promise<iTicket[]> => {
   const res = await supabase.from('ticket').select('*')
+
+  if (res.error != null) throw new Error(res.error.message)
+
   const tickets = res.data as iTicket[]
   return tickets
 }

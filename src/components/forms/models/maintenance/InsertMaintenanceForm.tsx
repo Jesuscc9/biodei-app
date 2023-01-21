@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useFormik } from 'formik'
 import { iInsertMaintenance } from '../../../../types'
 import { Button, InputSelect } from '../../../ui'
-import { useInsertmaintenance } from '../../../../hooks/models'
+import { useInsertMaintenance } from '../../../../hooks/models'
 
 const options = [
   { value: 'PREVENTIVE', label: 'Mantenimiento preventivo' },
@@ -17,7 +17,7 @@ const initialValues: iInsertMaintenance = {
 }
 
 export const InsertMaintenanceForm = ({ onSubmit }: { onSubmit?: () => void }): JSX.Element => {
-  const { isLoading, create } = useInsertmaintenance()
+  const { isLoading, create } = useInsertMaintenance()
 
   const { handleSubmit, handleChange, setFieldValue, values } = useFormik<iInsertMaintenance>({
     initialValues,
@@ -29,12 +29,6 @@ export const InsertMaintenanceForm = ({ onSubmit }: { onSubmit?: () => void }): 
     },
     enableReinitialize: true,
   })
-
-  console.log({ values })
-
-  useEffect(() => {
-    console.log({ values })
-  }, [values])
 
   return (
     <form onSubmit={handleSubmit} className='m-auto p-10 rounded-md w-[540px] flex flex-col gap-6'>

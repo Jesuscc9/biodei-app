@@ -4,7 +4,7 @@ import { supabase } from '../../../services/supabaseService'
 import { useSearchParams } from 'react-router-dom'
 import { mutate } from 'swr'
 
-export const useInsertmaintenance = (): iInsertModelHook<iMaintenance, iInsertMaintenance> => {
+export const useInsertMaintenance = (): iInsertModelHook<iMaintenance, iInsertMaintenance> => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const [searchParams] = useSearchParams()
@@ -17,7 +17,7 @@ export const useInsertmaintenance = (): iInsertModelHook<iMaintenance, iInsertMa
     try {
       const res = await supabase
         .from('maintenance')
-        .insert({ ...values, device_id: deviceId })
+        .insert({ ...values, device_id: values.device_id ?? deviceId })
         .single()
 
       await mutate('/devices')

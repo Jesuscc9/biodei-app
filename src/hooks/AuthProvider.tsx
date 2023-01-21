@@ -40,16 +40,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }): JSX.E
     }
   }, [])
 
-  useEffect(() => {
-    if (currentEvent === 'SIGNED_IN') {
-      navigate('/devices')
-    }
-
-    if (currentEvent === 'SIGNED_OUT') {
-      navigate('/login')
-    }
-  }, [currentEvent])
-
   return (
     <AuthContext.Provider
       value={{

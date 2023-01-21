@@ -16,5 +16,7 @@ module.exports = {
     semi: ['error', 'never'],
     quotes: [2, 'single', { avoidEscape: true }],
     '@typescript-eslint/consistent-type-assertions': 'off',
+    'react/jsx-uses-react': 0,
+    'react/react-in-jsx-scope': 0,
   },
 }

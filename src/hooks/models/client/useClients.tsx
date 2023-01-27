@@ -1,15 +1,18 @@
-import { iProfile, iModelHook } from '../../../types'
 import useSWR from 'swr'
 import { supabase } from '../../../services/supabaseService'
+import { iModelHook, iUser } from '../../../types'
 
-const getClients = async (): Promise<iProfile[]> => {
-  const res = await supabase.from('profile').select('*, client_profile(*)').filter('role', 'eq', 'CLIENT')
-  const tickets = res.data as iProfile[]
-  return tickets
+const getClients = async (): Promise<iUser[]> => {
+  const res = await supabase.from('user').select('*, profile(*), devices:device(*)  ').filter('role', 'eq', 'CLIENT')
+
+  if (res.error != null) throw new Error(res.error.message)
+
+  const clients = res.data as iUser[]
+  return clients
 }
 
-export const useClients = (): iModelHook<iProfile[]> => {
-  const res = useSWR<iProfile[]>('/clients', getClients)
+export const useClients = (): iModelHook<iUser[]> => {
+  const res = useSWR<iUser[]>('/clients', getClients)
 
   const isLoading = res.data === undefined && res.error === undefined
 

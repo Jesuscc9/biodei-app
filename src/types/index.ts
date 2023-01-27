@@ -1,5 +1,5 @@
-import { Database } from './supabase'
 import { SWRResponse } from 'swr'
+import { Database } from './supabase'
 
 export interface iModelHook<T> extends SWRResponse<T> {
   isLoading: boolean
@@ -24,8 +24,8 @@ export interface iDestroyModelHook<Model> {
 }
 
 export type iUser = Database['public']['Tables']['user']['Row'] & {
-  profile: Database['public']['Tables']['profile']['Row'] | null
-  devices: Array<Database['public']['Tables']['device']['Row']>
+  profile?: Database['public']['Tables']['profile']['Row'] | null
+  devices?: Array<Database['public']['Tables']['device']['Row']>
 }
 
 export type iProfile = Database['public']['Tables']['profile']['Row']

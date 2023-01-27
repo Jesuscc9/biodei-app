@@ -1,27 +1,29 @@
-import React, { useState } from 'react'
 import { Ring as Loader } from '@uiball/loaders'
-import { Link } from 'react-router-dom'
-import {
-  useDeleteDevice,
-  useDevices,
-  useInsertDevice,
-  useInsertMaintenance,
-  useUpdateMintenance,
-} from '../../../hooks/models'
-import { iDevice, iMaintenanceTitles } from '../../../types'
-import Dropdown from 'react-dropdown'
-import { AiOutlineArrowRight } from 'react-icons/ai'
+import React from 'react'
 import 'react-dropdown/style.css'
-import { Button, Modal } from '../../../components'
+import { useNavigate } from 'react-router-dom'
+import ProfileImage from '../../../assets/sample_icon.jpeg'
+import { useDeleteDevice, useDevices } from '../../../hooks/models'
+import { iDevice } from '../../../types'
 
 export const DevicesPage = (): JSX.Element => {
   const { data: devices, isLoading, error } = useDevices()
   const { destroy } = useDeleteDevice()
 
+  const navigate = useNavigate()
+
   const handleDeleteClick = (id: string): void => {
     destroy(id).catch((err) => {
       console.error(err)
     })
+  }
+
+  const handleCreateTicket = (id: string): void => {
+    alert(id)
+  }
+
+  const handleNavigate = (device: iDevice): void => {
+    navigate(`/admin/devices/${device.id}`)
   }
 
   if (error !== undefined) return <div className='text-red-500'>Tuvimos un error leyendo el inventario :c</div>
@@ -37,63 +39,43 @@ export const DevicesPage = (): JSX.Element => {
               <thead className='text-xs uppercase bg-zinc-700 text-gray-400'>
                 <tr>
                   <th scope='col' className='px-6 py-3'>
-                    Nombre
+                    Dispositivo
                   </th>
                   <th scope='col' className='px-6 py-3'>
-                    Descripcion
+                    Responsable
+                  </th>
+                  <th scope='col' className='px-6 py-3'>
+                    Departamento
                   </th>
                   <th scope='col' className='px-6 py-3'>
                     Status
                   </th>
-                  <th scope='col' className='px-6 py-3'>
-                    Codigo interno
-                  </th>
-                  <th scope='col' className='px-6 py-3'>
-                    Codigo externo
-                  </th>
 
-                  <th scope='col' className='px-6 py-3'>
-                    Marca
-                  </th>
-                  <th scope='col' className='px-6 py-3'>
-                    Modelo
-                  </th>
-                  <th scope='col' className='px-6 py-3'>
-                    Numero serial
-                  </th>
-                  <th scope='col' className='px-6 py-3'>
-                    Ubicacion
-                  </th>
-                  <th scope='col' className='px-6 py-3'>
-                    Imagen
-                  </th>
-                  <th scope='col' className='px-6 py-3'></th>
+                  <th scope='col' colSpan={2} className='px-6 py-3'></th>
                 </tr>
               </thead>
               <tbody>
                 {devices?.map((device) => {
                   return (
-                    <Link to={device.id} key={device.id}>
-                      <tr className='border-b bg-zinc-800 border-zinc-300 hover:bg-zinc-700' key={device.id}>
-                        <th scope='row' className='px-6 py-4 font-medium whitespace-nowrap text-white'>
-                          {device.name}
-                        </th>
-                        <td className='px-6 py-4 w-[140px]'>{device.description}</td>
-                        <Status device={device} />
-                        <td className='px-6 py-4'>{device.external_code}</td>
-                        <td className='px-6 py-4'>{device.internal_code}</td>
-                        <td className='px-6 py-4'>{device.brand}</td>
-                        <td className='px-6 py-4'>{device.model}</td>
-                        <td className='px-6 py-4'>{device.serial_number}</td>
-                        <td className='px-6 py-4'>{device.location}</td>
-                        <td className='py-3 w-24 h-24 object-cover'>
-                          <img src={device.image_url} alt='' />
-                        </td>
-                        <td className='px-6 py-4'>
-                          <button onClick={() => handleDeleteClick(device.id)}>Borrar</button>
-                        </td>
-                      </tr>
-                    </Link>
+                    <tr
+                      className='border-b bg-zinc-800 border-zinc-300 hover:bg-zinc-700 cursor-pointer'
+                      key={device.id}
+                      onClick={() => handleNavigate(device)}
+                    >
+                      <th scope='row' className='px-6 py-4 whitespace-nowrap text-white'>
+                        <p>{device.name}</p>
+                        <p className='text-xs text-gray-400'>{device.internal_code}</p>
+                      </th>
+                      <td className='px-6 py-4 w-[140px]'>
+                        <img src={ProfileImage} alt='' className='w-8 h-8 object-cover rounded-full' />
+                      </td>
+                      <td className='px-6 py-4'>{device.location}</td>
+                      <Status device={device} />
+
+                      <td className='px-6 py-4'>
+                        <button>Ver Detalles</button>
+                      </td>
+                    </tr>
                   )
                 })}
               </tbody>
@@ -105,7 +87,7 @@ export const DevicesPage = (): JSX.Element => {
   )
 }
 
-const StatusClasses: Record<iMaintenanceTitles, string> = {
+const StatusClasses: Record<any, string> = {
   MAINTENANCE_REQUESTED: 'border-yellow-500 text-yellow-500',
   MAINTENANCE_ACCEPTED: 'border-orange-500 text-orange-500',
   MAINTAINED: 'border-green-500 text-green-500',
@@ -132,5 +114,12 @@ const labels = {
 }
 
 const Status = ({ device }: { device: iDevice }): JSX.Element => {
-  return <td className='px-6 py-4'>{device.brand}</td>
+  return (
+    <td className='px-6 py-4'>
+      <div className='bg-green-600 px-4 py-2 text-white rounded-sm flex items-center gap-2'>
+        <span className='w-2 h-2 block bg-white rounded-full'></span>
+        Activo
+      </div>
+    </td>
+  )
 }

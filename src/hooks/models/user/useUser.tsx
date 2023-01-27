@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import useSWR from 'swr'
 import { supabase } from '../../../services/supabaseService'
 import { iModelHook, iUser } from '../../../types'
@@ -27,6 +27,7 @@ const getUser = async (): Promise<iUser> => {
 
 export const useUser = (): iModelHook<iUser> => {
   const navigate = useNavigate()
+  const { pathname } = useLocation()
 
   const res = useSWR<iUser>('/user', getUser)
 
@@ -35,8 +36,12 @@ export const useUser = (): iModelHook<iUser> => {
   useEffect(() => {
     if (res.data === undefined) return
 
+    console.log({ pathname })
+
     if (res.data.role === 'ADMIN') {
-      navigate('/admin/devices', { replace: true })
+      if (pathname.includes('login') || pathname === '/') {
+        navigate('/admin/dashboard', { replace: true })
+      }
     } else {
       navigate('/devices', { replace: true })
     }

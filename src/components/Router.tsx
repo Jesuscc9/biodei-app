@@ -1,6 +1,6 @@
 import React from 'react'
 import { Outlet, Route, Routes } from 'react-router-dom'
-import { DeviceDetailPage, DevicesPage as AdminDevicesPage, UsersPage } from '../pages/admin'
+import { DashboardPage, DeviceDetailPage, DevicesPage as AdminDevicesPage, UsersPage } from '../pages/admin'
 import { DevicesPage, NewDevicePage } from '../pages/devices'
 
 import { LoginPage } from '../pages/login'
@@ -20,6 +20,7 @@ export const Router = (): JSX.Element => {
           <Route path='new' element={<NewTicketPage />} />
         </Route>
         <Route path='admin' element={<Outlet />}>
+          <Route path='dashboard' element={<DashboardPage />} />
           <Route
             path='devices'
             element={

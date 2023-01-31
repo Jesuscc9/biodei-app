@@ -50,7 +50,9 @@ export const DevicesPage = (): JSX.Element => {
                   <th scope='col' className='px-6 py-3'>
                     Status
                   </th>
-
+                  <th scope='col' className='px-6 py-3'>
+                    Cliente
+                  </th>
                   <th scope='col' colSpan={2} className='px-6 py-3'></th>
                 </tr>
               </thead>
@@ -71,6 +73,8 @@ export const DevicesPage = (): JSX.Element => {
                       </td>
                       <td className='px-6 py-4'>{device.location}</td>
                       <Status device={device} />
+
+                      <th className='px-6 py-4 text-white'>{device.user?.profile?.company_name}</th>
 
                       <td className='px-6 py-4'>
                         <button>Ver Detalles</button>

@@ -12,7 +12,7 @@ export const InputText = ({ isLoading, label, ...props }: iProps): JSX.Element =
     <input
       id={props.name}
       title={props.name}
-      className='border py-2.5 text-sm px-4 text-white bg-zinc-700 border-zinc-300 rounded-md w-full mt-2'
+      className='border py-3.5 text-sm px-4 text-white bg-zinc-700 border-zinc-300 rounded-md w-full mt-2'
       {...props}
     />
   )

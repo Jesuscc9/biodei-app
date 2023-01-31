@@ -36,11 +36,9 @@ export const useUser = (): iModelHook<iUser> => {
   useEffect(() => {
     if (res.data === undefined) return
 
-    console.log({ pathname })
-
     if (res.data.role === 'ADMIN') {
       if (pathname.includes('login') || pathname === '/') {
-        navigate('/admin/dashboard', { replace: true })
+        navigate('/admin/clients', { replace: true })
       }
     } else {
       navigate('/devices', { replace: true })

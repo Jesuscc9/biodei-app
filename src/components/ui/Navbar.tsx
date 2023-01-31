@@ -3,6 +3,12 @@ import { Link, Outlet } from 'react-router-dom'
 import { useUser } from '../../hooks/models'
 import { supabase } from '../../services/supabaseService'
 
+const ROLE_ENUM = {
+  CLIENT: 'Cliente',
+  ADMIN: 'Admin',
+  INTERN: 'Interno',
+}
+
 export const Navbar = (): JSX.Element => {
   const { data: user } = useUser()
 
@@ -44,7 +50,7 @@ export const Navbar = (): JSX.Element => {
           <div className='flex gap-2 items-center py-1.5'>
             <h1>{user.profile?.first_name}</h1>
             <h1>{user.profile?.last_name}</h1>
-            <div className='ml-3 text-xs bg-green-500 bg-opacity-50 px-3 py-1 rounded-full'>{user.role}</div>
+            <div className='ml-3 text-xs bg-green-500 bg-opacity-50 px-3 py-1 rounded-full'>{ROLE_ENUM[user.role]}</div>
             <button
               title='Cerrar sesion'
               onClick={handleLogout}

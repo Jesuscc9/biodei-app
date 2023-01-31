@@ -1,12 +1,19 @@
 import React from 'react'
 import { Outlet, Route, Routes } from 'react-router-dom'
-import { DashboardPage, DeviceDetailPage, DevicesPage as AdminDevicesPage, UsersPage } from '../pages/admin'
+import {
+  ClientDetailPage,
+  DashboardPage,
+  DeviceDetailPage,
+  DevicesPage as AdminDevicesPage,
+  UsersPage,
+} from '../pages/admin'
 import { DevicesPage, NewDevicePage } from '../pages/devices'
 
 import { LoginPage } from '../pages/login'
 import { NewTicketPage, TicketDetailPage, TicketsPage } from '../pages/tickets'
 
 import { Navbar } from '../components'
+import { NewClientDevicePage } from '../pages/admin/clients/devices/NewClientDevicePage'
 
 export const Router = (): JSX.Element => {
   return (
@@ -20,7 +27,23 @@ export const Router = (): JSX.Element => {
           <Route path='new' element={<NewTicketPage />} />
         </Route>
         <Route path='admin' element={<Outlet />}>
-          <Route path='dashboard' element={<DashboardPage />} />
+          <Route path='clients' element={<Outlet />}>
+            <Route
+              path=':clientId'
+              element={
+                <>
+                  <Outlet />
+                  <ClientDetailPage />
+                </>
+              }
+            >
+              <Route path='devices'>
+                <Route path='new' element={<NewClientDevicePage />} />
+              </Route>
+            </Route>
+            <Route path='new' element={<div>Hola</div>}></Route>
+            <Route index element={<DashboardPage />} />
+          </Route>
           <Route
             path='devices'
             element={

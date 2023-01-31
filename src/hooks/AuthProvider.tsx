@@ -1,7 +1,7 @@
 import type { AuthChangeEvent, Session, User } from '@supabase/supabase-js'
 import React, { createContext, useContext, useEffect, useState } from 'react'
-import { supabase } from '../services/supabaseService'
 import { useNavigate } from 'react-router-dom'
+import { supabase } from '../services/supabaseService'
 
 interface iAuthContext {
   session: null | Session
@@ -33,6 +33,10 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }): JSX.E
       setCurrentEvent(event)
 
       console.info('Auth state changed:', event, currentSession)
+
+      if (event === 'SIGNED_OUT') {
+        navigate('/')
+      }
     })
 
     return () => {

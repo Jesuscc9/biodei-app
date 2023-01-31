@@ -33,7 +33,8 @@ export type iProfile = Database['public']['Tables']['profile']['Row']
 // DEVICE MODEL
 
 export type iDevice = Database['public']['Tables']['device']['Row'] & {
-  tickets: Array<Database['public']['Tables']['ticket']['Row']> | null
+  // tickets: Array<Database['public']['Tables']['ticket']['Row']> | null
+  user?: iUser
 }
 
 export type iInsertDevice = Database['public']['Tables']['device']['Insert']

@@ -22,7 +22,6 @@
     "formik": "2.2.9",
     "framer-motion": "8.2.4",
     "javascript-time-ago": "2.5.9",
-    "next": "13.1.0",
     "prisma": "4.6.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",

@@ -1,12 +1,12 @@
-import React, { ReactNode } from 'react'
 import { Ring as Loader } from '@uiball/loaders'
-import { BrowserRouter, useNavigate, useLocation } from 'react-router-dom'
-import { Router } from './components/Router'
+import React, { ReactNode } from 'react'
+import { BrowserRouter, useLocation, useNavigate } from 'react-router-dom'
+import { toast, ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 import { SWRConfig } from 'swr'
+import { Router } from './components/Router'
 import { AuthProvider } from './hooks/AuthProvider'
 import { useUser } from './hooks/models'
-import { ToastContainer, toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
 
 function App(): JSX.Element {
   return (
@@ -32,7 +32,7 @@ const ProtectRoutes = ({ children }: { children: ReactNode }): JSX.Element => {
   const location = useLocation()
 
   if (error !== undefined) {
-    if (location.pathname !== '/login') {
+    if (location.pathname !== '/login' && location.pathname !== '/') {
       toast.error('Porfavor inicia sesion', { toastId: 'auth-error' })
       navigate('/login')
     }

@@ -8,7 +8,7 @@ datasource db {
 }
 
 model user {
-  id                 String   @id @unique
+  id                 String   @id @unique @db.Uuid
   email              String   @unique
   raw_user_meta_data String   @default("{}")
   created_at         String
@@ -18,7 +18,7 @@ model user {
 }
 
 model profile {
-  id              String   @id @unique @default(dbgenerated("uuid_generate_v4()"))
+  id              String   @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   email           String
   first_name      String
   last_name       String
@@ -26,11 +26,11 @@ model profile {
   company_name    String?
   profile_picture String?
   user            user     @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  user_id         String   @unique
+  user_id         String   @unique @db.Uuid
 }
 
 model device {
-  id            String   @id @unique @default(dbgenerated("uuid_generate_v4()"))
+  id            String   @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   name          String
   description   String?
   external_code String
@@ -41,27 +41,27 @@ model device {
   location      String
   image_url     String
   created_at    DateTime @default(now())
-  user_id       String
+  user_id       String   @db.Uuid
   user          user     @relation(fields: [user_id], references: [id])
   ticket        ticket[]
 }
 
 model update {
-  id          String   @id @unique @default(dbgenerated("uuid_generate_v4()"))
+  id          String   @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   title       maintenances
   description String
   created_at  DateTime @default(now())
-  ticket_id   String
+  ticket_id   String   @db.Uuid
   ticket      ticket   @relation(fields: [ticket_id], references: [id])
 }
 
 model ticket {
-  id          String   @id @unique @default(dbgenerated("uuid_generate_v4()"))
+  id          String   @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   maintenance_type     maintenances_type
   update               update[]
   description String?
   created_at  DateTime @default(now())
-  device_id   String
+  device_id   String   @db.Uuid
   device      device  @relation(fields: [device_id], references: [id])
 }
 

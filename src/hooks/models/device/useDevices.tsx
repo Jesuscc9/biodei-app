@@ -1,9 +1,9 @@
-import { iDevice, iModelHook } from '../../../types'
 import useSWR from 'swr'
 import { supabase } from '../../../services/supabaseService'
+import { iDevice, iModelHook } from '../../../types'
 
 const getDevices = async (): Promise<iDevice[]> => {
-  const res = await supabase.from('device').select('*, tickets:ticket ( * )')
+  const res = await supabase.from('device').select('*, user (*, profile ( * )), tickets:ticket ( * )')
   if (res.error !== null) {
     throw new Error(res.error.message)
   }

@@ -24,26 +24,19 @@ export const Navbar = (): JSX.Element => {
         <div className='flex items-center gap-2'>
           <h1 className='font-bold text-xl'>BIODEI</h1>
           <ul className='ml-10 flex gap-4'>
-            <li>
-              <Link to='tickets' className='hover:underline'>
-                Tickets
-              </Link>
-            </li>
             {isAdmin ? (
-              <>
-                <li>
-                  <Link to='/admin/devices' className='hover:underline'>
-                    Devices
-                  </Link>
-                </li>
-
-                <li>
-                  <Link to='/admin/users' className='hover:underline'>
-                    Users
-                  </Link>
-                </li>
-              </>
-            ) : null}
+              <li>
+                <Link to='/admin/clients' className='hover:underline'>
+                  Clientes
+                </Link>
+              </li>
+            ) : (
+              <li>
+                <Link to='/devices' className='hover:underline'>
+                  Dispositivos
+                </Link>
+              </li>
+            )}
           </ul>
         </div>
         {user !== undefined ? (

@@ -57,7 +57,7 @@ export const DevicesTable = ({ devices }: iProps): JSX.Element => {
                 <td className='px-6 py-4'>
                   <div className='flex gap-4'>
                     {role === 'CLIENT' ? <Button>Solicitar mantenimiento</Button> : null}
-                    <DeleteButton device={device} />
+                    {role === 'ADMIN' ? <DeleteButton device={device} /> : null}
                   </div>
                 </td>
               </tr>

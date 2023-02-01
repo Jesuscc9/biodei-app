@@ -24,7 +24,10 @@ export const DashboardPage = (): JSX.Element => {
             {clients?.map((client) => (
               <Link to={client.id} key={client.id}>
                 <div className='w-[400px] bg-zinc-700 rounded-md p-6 hover:bg-zinc-600 cursor-pointer'>
-                  <p className='text-lg m-0'>{client.profile?.first_name}</p>
+                  <p className='text-lg m-0'>
+                    {client.profile?.first_name} {client.profile?.last_name}
+                  </p>
+
                   <p className='text-gray-400 text-sm mt-2'>{client.devices?.length} Dispositivo(s)</p>
                 </div>
               </Link>

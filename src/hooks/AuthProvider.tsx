@@ -1,6 +1,7 @@
 import type { AuthChangeEvent, Session, User } from '@supabase/supabase-js'
 import React, { createContext, useContext, useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { mutate } from 'swr'
 import { supabase } from '../services/supabaseService'
 
 interface iAuthContext {
@@ -16,6 +17,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }): JSX.E
   const [currentEvent, setCurrentEvent] = useState<AuthChangeEvent | null>(null)
 
   const navigate = useNavigate()
+  const location = useLocation()
 
   useEffect(() => {
     const loadData = async (): Promise<void> => {
@@ -36,6 +38,12 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }): JSX.E
 
       if (event === 'SIGNED_OUT') {
         navigate('/')
+      }
+
+      if (event === 'SIGNED_IN') {
+        mutate('/user').catch((e) => {
+          console.error(e)
+        })
       }
     })
 

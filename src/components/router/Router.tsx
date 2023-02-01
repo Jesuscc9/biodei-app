@@ -40,19 +40,6 @@ export const Router = (): JSX.Element => {
             }
           >
             <Route
-              path=':clientId'
-              element={
-                <>
-                  <Outlet />
-                  <ClientDetailPage />
-                </>
-              }
-            >
-              <Route path='devices'>
-                <Route path='new' element={<NewClientDevicePage />} />
-              </Route>
-            </Route>
-            <Route
               path='new'
               element={
                 <>
@@ -61,6 +48,20 @@ export const Router = (): JSX.Element => {
               }
             ></Route>
           </Route>
+          <Route
+            path='clients/:clientId'
+            element={
+              <>
+                <Outlet />
+                <ClientDetailPage />
+              </>
+            }
+          >
+            <Route path='devices'>
+              <Route path='new' element={<NewClientDevicePage />} />
+            </Route>
+          </Route>
+
           <Route
             path='devices'
             element={

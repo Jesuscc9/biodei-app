@@ -52,5 +52,6 @@ export interface iInsertUser {
   password: string
   first_name: string
   last_name: string
+  company_name?: string
   role: Database['public']['Enums']['role']
 }

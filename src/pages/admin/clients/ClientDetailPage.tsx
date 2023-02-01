@@ -1,4 +1,5 @@
 import React from 'react'
+import { MdArrowBack } from 'react-icons/md'
 import { Link, useParams } from 'react-router-dom'
 import { Button, DevicesTable } from '../../../components'
 import { useClient } from '../../../hooks/models'
@@ -15,6 +16,10 @@ export const ClientDetailPage = (): JSX.Element => {
 
   return (
     <div className='px-20 py-10'>
+      <Link to='/admin/clients' className='border-b flex items-center mb-14 gap-1 w-min whitespace-nowrap'>
+        <MdArrowBack />
+        Regresar a Clientes
+      </Link>
       <div className='flex justify-between items-start'>
         <div>
           <h1 className='text-3xl font-bold'>

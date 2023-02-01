@@ -12,9 +12,13 @@ export const DevicesPage = (): JSX.Element => {
     <div className='p-20'>
       <Outlet />
       <div className='flex justify-between items-center'>
-        <h1>Inventario</h1>
+        <h1 className='text-xl'>Inventario</h1>
       </div>
-      <DevicesTable devices={devices} />
+      {devices.length > 0 ? (
+        <DevicesTable devices={devices} />
+      ) : (
+        <p className='mt-10'>No se ha registrado ningun dispositivo.</p>
+      )}
     </div>
   )
 }

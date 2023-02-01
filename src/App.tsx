@@ -4,7 +4,7 @@ import { BrowserRouter, useLocation, useNavigate } from 'react-router-dom'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { SWRConfig } from 'swr'
-import { Router } from './components/Router'
+import { Router } from './components/router/Router'
 import { AuthProvider } from './hooks/AuthProvider'
 import { useUser } from './hooks/models'
 

@@ -1,19 +1,22 @@
 import React from 'react'
 import { Outlet, Route, Routes } from 'react-router-dom'
+import { DevicesPage, NewDevicePage } from '../../pages/devices'
+
+import { LoginPage } from '../../pages/login'
+import { NewTicketPage, TicketDetailPage, TicketsPage } from '../../pages/tickets'
+
+import { Navbar } from '..'
+
 import {
   ClientDetailPage,
   DashboardPage,
   DeviceDetailPage,
   DevicesPage as AdminDevicesPage,
   UsersPage,
-} from '../pages/admin'
-import { DevicesPage, NewDevicePage } from '../pages/devices'
+} from '../../pages/admin'
 
-import { LoginPage } from '../pages/login'
-import { NewTicketPage, TicketDetailPage, TicketsPage } from '../pages/tickets'
-
-import { Navbar } from '../components'
-import { NewClientDevicePage } from '../pages/admin/clients/devices/NewClientDevicePage'
+import { NewClientDevicePage } from '../../pages/admin/clients/devices/NewClientDevicePage'
+import { NewClientPage } from '../../pages/admin/clients/NewClientPage'
 
 export const Router = (): JSX.Element => {
   return (
@@ -27,7 +30,15 @@ export const Router = (): JSX.Element => {
           <Route path='new' element={<NewTicketPage />} />
         </Route>
         <Route path='admin' element={<Outlet />}>
-          <Route path='clients' element={<Outlet />}>
+          <Route
+            path='clients'
+            element={
+              <>
+                <DashboardPage />
+                <Outlet />
+              </>
+            }
+          >
             <Route
               path=':clientId'
               element={
@@ -41,8 +52,14 @@ export const Router = (): JSX.Element => {
                 <Route path='new' element={<NewClientDevicePage />} />
               </Route>
             </Route>
-            <Route path='new' element={<div>Hola</div>}></Route>
-            <Route index element={<DashboardPage />} />
+            <Route
+              path='new'
+              element={
+                <>
+                  <NewClientPage />
+                </>
+              }
+            ></Route>
           </Route>
           <Route
             path='devices'
@@ -63,7 +80,7 @@ export const Router = (): JSX.Element => {
                 <DeviceDetailPage />
               </>
             }
-          />
+          ></Route>
           <Route
             path='users'
             element={

@@ -46,3 +46,11 @@ export type iTicket = Database['public']['Tables']['ticket']['Row']
 export type iInsertTicket = Database['public']['Tables']['ticket']['Insert']
 
 export type iUpdateTicket = Database['public']['Tables']['ticket']['Update']
+
+export interface iInsertUser {
+  email: string
+  password: string
+  first_name: string
+  last_name: string
+  role: Database['public']['Enums']['role']
+}

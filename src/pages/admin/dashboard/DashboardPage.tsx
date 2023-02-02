@@ -20,10 +20,11 @@ export const DashboardPage = (): JSX.Element => {
               <Button>Registrar Cliente +</Button>
             </Link>
           </div>
-          <div className='flex mt-4'>
+          <div className='flex mt-4 gap-10'>
             {clients?.map((client) => (
               <Link to={client.id} key={client.id}>
                 <div className='w-[400px] bg-zinc-700 rounded-md p-6 hover:bg-zinc-600 cursor-pointer'>
+                  <p>{client.profile?.company_name}</p>
                   <p className='text-lg m-0'>
                     {client.profile?.first_name} {client.profile?.last_name}
                   </p>

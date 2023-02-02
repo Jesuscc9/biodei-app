@@ -3,7 +3,12 @@ import { supabase } from '../../../services/supabaseService'
 import { iDevice, iModelHook } from '../../../types'
 
 const getDevices = async (): Promise<iDevice[]> => {
-  const res = await supabase.from('device').select('*, user (*, profile ( * )), tickets:ticket ( * )')
+  const userId = (await supabase.auth.getUser()).data.user?.id
+
+  const res = await supabase
+    .from('device')
+    .select('*, user (*, profile ( * )), tickets:ticket ( * )')
+    .eq('user_id', userId)
   if (res.error !== null) {
     throw new Error(res.error.message)
   }

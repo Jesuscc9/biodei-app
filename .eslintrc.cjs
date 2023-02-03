@@ -12,7 +12,12 @@ module.exports = {
   },
   plugins: ['react', 'prettier'],
   rules: {
-    'prettier/prettier': 'error',
+    'prettier/prettier': [
+      'error',
+      {
+        endOfLine: 'auto',
+      },
+    ],
     semi: ['error', 'never'],
     quotes: [2, 'single', { avoidEscape: true }],
     '@typescript-eslint/consistent-type-assertions': 'off',

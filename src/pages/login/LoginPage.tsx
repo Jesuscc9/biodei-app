@@ -53,9 +53,9 @@ export const LoginPage = (): JSX.Element => {
               <LoginForm />
               <p className='text-zinc-400 text-sm text-center'>
                 No tienes cuenta?
-                <Link to='signup' className='underline ml-1 text-white'>
+                <button className='underline ml-1 text-white' onClick={handleRequestClick}>
                   Solicítala ahora
-                </Link>
+                </button>
               </p>
             </div>
           </div>
@@ -81,7 +81,7 @@ export const LoginPage = (): JSX.Element => {
       <Modal show={showModal} setShow={setShowModal}>
         <div className='flex flex-col gap-6 p-12'>
           <p className='text-2xl w-[450px] max-h-full text-center'>
-            ¡Dejanos tu dirección de correo electrónico y te contactaremos lo antes posible!
+            ¡Déjanos tu dirección de correo electrónico y te contactaremos lo antes posible!
           </p>
           <InputText placeholder='ejemplo@gmail.com' />
           <Button className='w-min self-end'>Continuar</Button>

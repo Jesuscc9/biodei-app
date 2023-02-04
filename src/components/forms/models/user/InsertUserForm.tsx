@@ -76,7 +76,7 @@ export const InsertUserForm = (): JSX.Element => {
 
         <label htmlFor='password'>
           Contraseña
-          <InputText name='password' placeholder='******' onChange={handleChange} />
+          <InputText name='password' type='password' placeholder='******' onChange={handleChange} />
         </label>
 
         <Button disabled={disableEmail} type='submit' isLoading={isLoading}>

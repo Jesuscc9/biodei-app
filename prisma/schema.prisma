@@ -65,6 +65,12 @@ model ticket {
   device      device  @relation(fields: [device_id], references: [id])
 }
 
+model company_information {
+  id          String @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  name        String
+
+}
+
 enum maintenances {
   MAINTAINING
 }

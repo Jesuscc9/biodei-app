@@ -23,7 +23,6 @@ model profile {
   first_name      String
   last_name       String
   created_at      DateTime @default(now())
-  company_name    String?
   profile_picture String?
   user            user     @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   user_id         String   @unique @db.Uuid
@@ -66,9 +65,42 @@ model ticket {
 }
 
 model company_information {
-  id          String @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  name        String
+  id                          String @id @unique @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  contributor_name            String
+  comercial_name              String
+  rfc                         String
+  owner                       String
+  street                      String
+  colony                      String
+  interior_number             String
+  exterior_number             String
+  postal_code                 String
+  city                        String
+  state                       String
+  company_phone               String
+  first_contact_person_name   String
+  first_contact_person_phone  String
+  first_contact_person_email  String
+  second_contact_person_name  String
+  second_contact_person_phone String
+  second_contact_person_email String
+  website                     String?
+  contract_type               contract_type
+  contract_start              DateTime?
+  contract_end                DateTime?
+  preventive_maintenance      Boolean?
+  corrective_maintenace       Boolean?
+  calibration                 Boolean?
+  equipment_sale              Boolean?
+  equipment_rent              Boolean?
+  equipment_installation      Boolean?
+  review_and_diagnosis        Boolean?
+  other_services              Boolean?
+}
 
+enum contract_type {
+  ANUAL
+  PER_EVENT
 }
 
 enum maintenances {

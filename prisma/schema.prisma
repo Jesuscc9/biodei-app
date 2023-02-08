@@ -26,6 +26,7 @@ model profile {
   profile_picture String?
   user            user     @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   user_id         String   @unique @db.Uuid
+  company_information company_information?
 }
 
 model device {
@@ -96,6 +97,8 @@ model company_information {
   equipment_installation      Boolean?
   review_and_diagnosis        Boolean?
   other_services              Boolean?
+  profile_id                  String @unique @db.Uuid
+  profile                     profile @relation(fields: [profile_id], references: [id])
 }
 
 enum contract_type {
